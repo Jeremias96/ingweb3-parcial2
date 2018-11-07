@@ -1,0 +1,31 @@
+Model
+	- LISTAS ✓
+	- TAREAS ✓
+
+SERVICIOS
+	- CREAR LISTAS IN PROGERSS
+
+	- CREAR TAREAS
+	- CONSULTAR TAREAS
+	- MOVER TAREAS 
+	- BORRAR TAREAS
+
+RESTRICCIONES
+	- Las listas sólo pueden tener los nombres: backlog, TODO, in progress, waiting, done y no pueden estar repetidos.
+	- Cuando se crea una tarea, obligatoriamente debe ser asignada a la lista "backlog", caso contrario debe devolver un error.
+	- Se debe permitir mover una tarea del backlog sólo a TODO, asegurandonos que posee una estimación definida.
+	- Las tareas pueden moverse de TODO a in progress y waiting libremente, sin embargo una vez que pasaron a DONE no pueden moverse a ninguna otra lista.
+	- Se debe poder consultar el listado de tareas, para lo cual se podría elegir una lista en particular, ordenados por prioridad o por fecha de creación.
+
+HERRAMIENTAS
+	- spring boot
+	- hibernate
+	- maven
+
+PATRONES DE DISEÑO
+	- MVC
+	- DAO
+	- Factory
+
+TEST
+	- Postman
