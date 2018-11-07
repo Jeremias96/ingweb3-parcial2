@@ -2,6 +2,7 @@ package ar.edu.iua.ingweb3proyecto.business;
 
 import java.util.List;
 
+import ar.edu.iua.ingweb3proyecto.business.exception.BusinessException;
 import ar.edu.iua.ingweb3proyecto.model.Lista;
 
 public interface IListaBusiness {
@@ -12,6 +13,7 @@ public interface IListaBusiness {
 	//searchByAlgo
 	//getOne
 	//add
+	Lista addLista(Lista lista);
 	//update
 	//delete
 

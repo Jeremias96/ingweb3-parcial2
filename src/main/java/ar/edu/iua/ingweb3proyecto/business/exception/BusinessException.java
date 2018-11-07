@@ -1,4 +1,4 @@
-package ar.edu.iua.ingweb3proyecto.business;
+package ar.edu.iua.ingweb3proyecto.business.exception;
 
 public class BusinessException extends Exception {
 
