@@ -58,6 +58,14 @@ public class Lista {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
+	
+	public String getSprint() {
+		return sprint;
+	}
+
+	public void setSprint(String sprint) {
+		this.sprint = sprint;
+	}
 
 	public List<Tarea> getListaDeTareas() {
 		return listaDeTareas;

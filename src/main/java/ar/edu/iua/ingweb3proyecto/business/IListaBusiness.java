@@ -13,7 +13,7 @@ public interface IListaBusiness {
 	//searchByAlgo
 	//getOne
 	//add
-	Lista addLista(Lista lista);
+	Lista addLista(Lista lista) throws BusinessException;
 	//update
 	//delete
 
