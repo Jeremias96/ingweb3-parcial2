@@ -21,7 +21,7 @@ private static FactoryDAO instance = null;
 	private static String dataBaseActive = "MYSQL";	//Esto es parte del Factory
 	
 	@Bean
-	public static IGenericDAO getBillingsDAO() {
+	public static IGenericDAO getTareasDAO() {
 		if(dataBaseActive == "MYSQL") {
 			return TareasDAO.getInstance();
 		}

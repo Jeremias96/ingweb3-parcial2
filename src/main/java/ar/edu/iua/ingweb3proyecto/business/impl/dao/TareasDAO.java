@@ -20,8 +20,6 @@ import ar.edu.iua.ingweb3proyecto.model.Tarea;
 @Component
 public class TareasDAO implements IGenericDAO<Tarea, Integer>{
 
-	//@Autowired
-	//private EntityManagerFactory		//EntityManagerFactory.unwrap(SessionFactory.class).openSession();
 	@Autowired
 	private EntityManagerFactory emf = null;
 	

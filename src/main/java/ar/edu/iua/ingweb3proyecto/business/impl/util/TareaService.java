@@ -11,7 +11,7 @@ import ar.edu.iua.ingweb3proyecto.model.Tarea;
 public class TareaService {
 
 	public List<Tarea> findAll() {
-		List<Tarea> tareas = FactoryDAO.getInstance().getBillingsDAO().findAll();		
+		List<Tarea> tareas = FactoryDAO.getInstance().getTareasDAO().findAll();
 		return tareas;
 	}
 
