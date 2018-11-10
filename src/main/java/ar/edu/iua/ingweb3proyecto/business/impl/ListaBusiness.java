@@ -16,7 +16,7 @@ public class ListaBusiness implements IListaBusiness{
 
 	@Autowired
 	private ListaRepository listaDAO;
-	private ListaService listaService;
+	//private ListaService listaService;
 
 	@Override
 	public Lista addLista(Lista lista) throws BusinessException {

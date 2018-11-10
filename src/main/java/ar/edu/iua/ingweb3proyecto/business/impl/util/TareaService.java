@@ -15,4 +15,18 @@ public class TareaService {
 		return tareas;
 	}
 
+	public Tarea save(Tarea tarea){
+		Tarea t = (Tarea) FactoryDAO.getInstance().getTareasDAO().save(tarea);
+		return t;
+	}
+
+	public Tarea findById(Integer id){
+		Tarea t = (Tarea) FactoryDAO.getInstance().getTareasDAO().findById(id);
+		return t;
+	}
+
+	public void delete(Integer id){
+		FactoryDAO.getInstance().getTareasDAO().delete(id);
+	}
+
 }

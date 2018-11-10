@@ -65,4 +65,82 @@ public class TareasDAO implements IGenericDAO<Tarea, Integer>{
 		return resultListTareas;
 	}
 
+	@Override
+	public Tarea save(Tarea tarea){
+		Session session = emf.unwrap(SessionFactory.class).openSession();
+		Transaction tx;
+		// cambiar factory para que devuelva tarea
+		//Tarea tarea = null;
+		Tarea t = new Tarea();
+
+		try {
+			tx = session.beginTransaction();
+			int id = (Integer) session.save(tarea);
+
+            t = session.get(Tarea.class, id);
+
+            // t.getLista().getNombre() == "backlog".caseLess() -> List error
+            // t.getLista() == null -> NOT FOUND
+
+			tx.commit();
+		} catch (HibernateException e) {
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
+
+		return t;
+	}
+
+    @Override
+    public Tarea findById(Integer id) {
+        Session session = emf.unwrap(SessionFactory.class).openSession();
+        Transaction tx;
+
+        Tarea t = null;
+
+        try {
+            tx = session.beginTransaction();
+            session.flush();
+
+            CriteriaBuilder builder = session.getCriteriaBuilder();
+
+            CriteriaQuery<Tarea> query = builder.createQuery(Tarea.class);
+            Root<Tarea> from = query.from(Tarea.class);
+
+            query.select(from).where(builder.equal(from.get("id"), id));
+            t = session.createQuery(query).getSingleResult();
+
+            tx.commit();
+        } catch (HibernateException e) {
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+
+        return t;
+    }
+
+    @Override
+    public void delete(Integer id) {
+        Session session = emf.unwrap(SessionFactory.class).openSession();
+        Transaction tx;
+
+        Tarea t = null;
+
+        try {
+            tx = session.beginTransaction();
+
+            t = session.get(Tarea.class, id);
+
+            session.delete(t);
+
+            tx.commit();
+        } catch (HibernateException e) {
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+    }
+
 }

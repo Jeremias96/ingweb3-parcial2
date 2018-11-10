@@ -3,11 +3,16 @@ Model
 	- TAREAS ✓
 
 SERVICIOS
-	- CREAR LISTAS
-	- CREAR TAREAS
+	- CREAR LISTAS ✓
+	- CREAR TAREAS ✓
 	- MOSTRAR TAREAS ✓
-	- MOVER TAREAS 
-	- BORRAR TAREAS
+	- MOVER TAREAS
+	- BORRAR TAREAS ✓
+
+BUGS:
+    - CONTEMPLAR MAS EXCEPCIONES
+    - VER SERVER ERROR AL NO ENCONTRAR LA LISTA AL LISTAR, por que hay que pasar el id de lista : Not found list
+    - VER SERVER ERROR AL BORRAR TAREA QUE NO EXISTE > NOT FOUND
 
 RESTRICCIONES
 	- Las listas sólo pueden tener los nombres: backlog, TODO, in progress, waiting, done y no pueden estar repetidos.

@@ -4,7 +4,7 @@ import org.springframework.context.annotation.Bean;
 
 public class FactoryDAO {
 
-private static FactoryDAO instance = null;
+	private static FactoryDAO instance = null;
 	
 	private FactoryDAO() {
 		

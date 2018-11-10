@@ -27,8 +27,8 @@ public class Tarea {
 	
 	@Column(name = "fecha_modificacion")
 	private Date fechaModificacion;
-	
-	@Column(name = "prioridad", length = 5)
+
+    @Column(name = "prioridad", length = 10)
 	private String prioridad;
 	
 	@ManyToOne
@@ -43,8 +43,7 @@ public class Tarea {
 		
 	}
 
-	public Tarea(int id, String nombre, Date fechaCreacion, Date fechaModificacion, String prioridad, Lista lista,
-			int estimacion) {
+	public Tarea(int id, String nombre, Date fechaCreacion, Date fechaModificacion, String prioridad, Lista lista, int estimacion) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
@@ -87,6 +86,14 @@ public class Tarea {
 		this.fechaModificacion = fechaModificacion;
 	}
 
+    public String getPrioridad() {
+        return prioridad;
+    }
+
+    public void setPrioridad(String prioridad) {
+        this.prioridad = prioridad;
+    }
+
 	public Lista getLista() {
 		return lista;
 	}
@@ -102,5 +109,9 @@ public class Tarea {
 	public void setEstimacion(int estimacion) {
 		this.estimacion = estimacion;
 	}
-	
+
+
+	public String toString(){
+        return "Tarea: " + this.id + "|" + this.nombre + "|" + this.fechaCreacion + "|" + this.fechaModificacion + "|" + this.prioridad + "|" + this.lista + "|" + this.estimacion;
+    }
 }

@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import ar.edu.iua.ingweb3proyecto.web.services.Constantes;
 import ar.edu.iua.ingweb3proyecto.business.IListaBusiness;
 import ar.edu.iua.ingweb3proyecto.business.exception.BusinessException;
 import ar.edu.iua.ingweb3proyecto.model.Lista;
