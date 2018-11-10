@@ -7,6 +7,8 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
+import ar.edu.iua.ingweb3proyecto.business.exception.BusinessException;
+import ar.edu.iua.ingweb3proyecto.model.Lista;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -38,7 +40,7 @@ public class TareasDAO implements IGenericDAO<Tarea, Integer>{
 	}
 	
 	@Override
-	public List<Tarea> findAll() {
+	public List<Tarea> findAll() throws BusinessException {
 		Session session = emf.unwrap(SessionFactory.class).openSession();
 		Transaction tx;
 		List<Tarea> resultListTareas = null;
@@ -57,7 +59,7 @@ public class TareasDAO implements IGenericDAO<Tarea, Integer>{
 			
 			tx.commit();			
 		} catch (HibernateException e) {
-            e.printStackTrace();
+            throw new BusinessException();
         } finally {
             session.close();
         }
@@ -66,7 +68,7 @@ public class TareasDAO implements IGenericDAO<Tarea, Integer>{
 	}
 
 	@Override
-	public Tarea save(Tarea tarea){
+	public Tarea save(Tarea tarea) throws BusinessException {
 		Session session = emf.unwrap(SessionFactory.class).openSession();
 		Transaction tx;
 		// cambiar factory para que devuelva tarea
@@ -84,7 +86,7 @@ public class TareasDAO implements IGenericDAO<Tarea, Integer>{
 
 			tx.commit();
 		} catch (HibernateException e) {
-			e.printStackTrace();
+            throw new BusinessException();
 		} finally {
 			session.close();
 		}
@@ -93,7 +95,7 @@ public class TareasDAO implements IGenericDAO<Tarea, Integer>{
 	}
 
     @Override
-    public Tarea findById(Integer id) {
+    public Tarea findById(Integer id) throws BusinessException {
         Session session = emf.unwrap(SessionFactory.class).openSession();
         Transaction tx;
 
@@ -113,7 +115,7 @@ public class TareasDAO implements IGenericDAO<Tarea, Integer>{
 
             tx.commit();
         } catch (HibernateException e) {
-            e.printStackTrace();
+            throw new BusinessException();
         } finally {
             session.close();
         }
@@ -122,7 +124,7 @@ public class TareasDAO implements IGenericDAO<Tarea, Integer>{
     }
 
     @Override
-    public void delete(Integer id) {
+    public void delete(Integer id) throws BusinessException {
         Session session = emf.unwrap(SessionFactory.class).openSession();
         Transaction tx;
 
@@ -137,10 +139,39 @@ public class TareasDAO implements IGenericDAO<Tarea, Integer>{
 
             tx.commit();
         } catch (HibernateException e) {
-            e.printStackTrace();
+            throw new BusinessException();
         } finally {
             session.close();
         }
+    }
+
+    @Override
+    public Tarea update(Tarea tarea) throws BusinessException {
+        Session session = emf.unwrap(SessionFactory.class).openSession();
+        Transaction tx;
+
+        Tarea t = null;
+        Lista l = null;
+
+        try {
+            tx = session.beginTransaction();
+
+            l = session.get(Lista.class, tarea.getLista().getId());
+
+            t = session.get(Tarea.class, tarea.getId());
+
+            t.setLista(l);
+
+            session.update(t);
+
+            tx.commit();
+        } catch (HibernateException e) {
+            throw new BusinessException();
+        } finally {
+            session.close();
+        }
+
+        return t;
     }
 
 }

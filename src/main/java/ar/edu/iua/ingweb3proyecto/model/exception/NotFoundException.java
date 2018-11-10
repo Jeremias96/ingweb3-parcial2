@@ -2,7 +2,7 @@ package ar.edu.iua.ingweb3proyecto.model.exception;
 
 public class NotFoundException extends Exception{
 
-	private static final long serialVersionUID = -5498525581172038646L;
+	private static final long serialVersionUID = -7272437560327277111L;
 
 	public NotFoundException() {
 		super();
