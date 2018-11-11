@@ -3,10 +3,7 @@ package ar.edu.iua.ingweb3proyecto.web.services;
 import java.util.List;
 
 import ar.edu.iua.ingweb3proyecto.model.Lista;
-import ar.edu.iua.ingweb3proyecto.model.exception.InvalidEstimationValueException;
-import ar.edu.iua.ingweb3proyecto.model.exception.InvalidListNameException;
-import ar.edu.iua.ingweb3proyecto.model.exception.NotFoundException;
-import ar.edu.iua.ingweb3proyecto.model.exception.NullListException;
+import ar.edu.iua.ingweb3proyecto.model.exception.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -27,9 +24,24 @@ public class TareasRESTController {
     private ITareaBusiness tareaBusiness;
 	
 	@GetMapping(value = { "/", "" })
-    public ResponseEntity<List<Tarea>> lista() {
+    public ResponseEntity<List<Tarea>> lista(
+            @RequestParam(required = false, value = "q", defaultValue = "*") String q,
+            @RequestParam(required = false, value = "sort", defaultValue = "*") String sort) {
+
 		try {
-			return new ResponseEntity<List<Tarea>>(tareaBusiness.getAll(), HttpStatus.OK);
+            if (!q.equals("*") && sort.equals("*")) {
+                //getByLista
+                return new ResponseEntity<List<Tarea>>(tareaBusiness.getByLista(q), HttpStatus.OK);
+            } else if (q.equals("*") && !sort.equals("*")) {
+                //getAllSorted
+                return new ResponseEntity<List<Tarea>>(tareaBusiness.getAllSorted(sort), HttpStatus.OK);
+            } else if (!q.equals("*") && !sort.equals("*")) {
+                //getByListaSorted
+                return new ResponseEntity<List<Tarea>>(tareaBusiness.getByListaSorted(q, sort), HttpStatus.OK);
+            } else {
+                //getAll
+                return new ResponseEntity<List<Tarea>>(tareaBusiness.getAll(), HttpStatus.OK);
+            }
 		} catch (BusinessException e) {
 			return new ResponseEntity<List<Tarea>>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
@@ -46,7 +58,7 @@ public class TareasRESTController {
             return new ResponseEntity<Tarea>(HttpStatus.NOT_ACCEPTABLE);
         } catch (NullListException e){
             return new ResponseEntity<Tarea>(HttpStatus.NOT_FOUND);
-        } catch (EntityNotFoundException e){
+        } catch (NotFoundException e){
             return new ResponseEntity<Tarea>(HttpStatus.NOT_FOUND);
         } catch (BusinessException e) {
             return new ResponseEntity<Tarea>(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -75,9 +87,13 @@ public class TareasRESTController {
             HttpHeaders responseHeaders = new HttpHeaders();
             responseHeaders.set("location", "/tareas" + t.getId());
             return new ResponseEntity<Tarea>(t, responseHeaders, HttpStatus.OK);
+        } catch (NullListException e) {
+            return new ResponseEntity<Tarea>(HttpStatus.NOT_FOUND);
         } catch (NotFoundException e) {
             return new ResponseEntity<Tarea>(HttpStatus.NOT_FOUND);
         } catch (InvalidEstimationValueException e) {
+            return new ResponseEntity<Tarea>(HttpStatus.NOT_ACCEPTABLE);
+        } catch (InvalidDestinationListException e) {
             return new ResponseEntity<Tarea>(HttpStatus.NOT_ACCEPTABLE);
         } catch (BusinessException e) {
             return new ResponseEntity<Tarea>(HttpStatus.INTERNAL_SERVER_ERROR);

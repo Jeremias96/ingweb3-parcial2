@@ -1,15 +1,12 @@
 package ar.edu.iua.ingweb3proyecto.business.impl;
 
 import java.sql.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 import ar.edu.iua.ingweb3proyecto.model.Lista;
-import ar.edu.iua.ingweb3proyecto.model.exception.InvalidEstimationValueException;
-import ar.edu.iua.ingweb3proyecto.model.exception.InvalidListNameException;
-import ar.edu.iua.ingweb3proyecto.model.exception.NotFoundException;
-import ar.edu.iua.ingweb3proyecto.model.exception.NullListException;
+import ar.edu.iua.ingweb3proyecto.model.exception.*;
 import ar.edu.iua.ingweb3proyecto.model.persistence.ListaRepository;
+import org.aspectj.weaver.ast.Not;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +16,7 @@ import ar.edu.iua.ingweb3proyecto.business.impl.util.TareaService;
 import ar.edu.iua.ingweb3proyecto.model.Tarea;
 
 import javax.persistence.EntityNotFoundException;
+import javax.persistence.NoResultException;
 
 @Service
 public class TareaBusiness implements ITareaBusiness{
@@ -32,30 +30,67 @@ public class TareaBusiness implements ITareaBusiness{
 	@Override
 	public List<Tarea> getAll() throws BusinessException {
 		try {
-			return tareaService.findAll();
+            HashMap<String, String> parameters = new HashMap<String, String>();
+			return tareaService.findAll(parameters);
 		} catch (Exception e) {
 			throw new BusinessException(e);
 		}
 	}
 
+    @Override
+    public List<Tarea> getByLista(String q) throws BusinessException {
+        try {
+            HashMap<String, String> parameters = new HashMap<String, String>();
+            parameters.put("q", q);
+            return tareaService.findAll(parameters);
+        } catch (Exception e) {
+            throw new BusinessException(e);
+        }
+    }
+
+    @Override
+    public List<Tarea> getAllSorted(String sort) throws BusinessException {
+        try {
+            HashMap<String, String> parameters = new HashMap<String, String>();
+            parameters.put("sort", sort);
+            return tareaService.findAll(parameters);
+        } catch (Exception e) {
+            throw new BusinessException(e);
+        }
+    }
+
+    @Override
+    public List<Tarea> getByListaSorted(String q, String sort) throws BusinessException {
+        try {
+            HashMap<String, String> parameters = new HashMap<String, String>();
+            parameters.put("q", q);
+            parameters.put("sort", sort);
+            return tareaService.findAll(parameters);
+        } catch (Exception e) {
+            throw new BusinessException(e);
+        }
+    }
+
 	@Override
-	public Tarea findById(Integer id) throws BusinessException {
+	public Tarea findById(Integer id) throws BusinessException, NotFoundException {
 		try {
 			return tareaService.findById(id);
-		} catch (Exception e) {
+		} catch (NotFoundException e) {
+            throw new NotFoundException(e);
+        } catch (Exception e) {
 			throw new BusinessException(e);
 		}
 	}
 
 	@Override
-	public Tarea add(Tarea tarea) throws BusinessException, NullListException, InvalidListNameException {
+	public Tarea add(Tarea tarea) throws BusinessException, NullListException, InvalidListNameException, NotFoundException {
 
 		Lista lista = null;
 
 		try {
 			lista = listaDAO.getOne(tarea.getLista().getId());
 		} catch (EntityNotFoundException e) {
-			throw new EntityNotFoundException();
+			throw new NotFoundException();
 		} catch (NullPointerException e){
 			throw new NullListException();
 		}
@@ -75,24 +110,53 @@ public class TareaBusiness implements ITareaBusiness{
 	public void delete(Tarea tarea) throws BusinessException, NotFoundException {
 		try {
 			tareaService.delete(tarea.getId());
-		}catch (NotFoundException e){
-			throw new NotFoundException(e);
-		}catch (BusinessException e){
+		} catch (NotFoundException e) {
+            throw new NotFoundException(e);
+		} catch (BusinessException e){
 			throw new BusinessException(e);
 		}
 	}
 
 	@Override
-	public Tarea update(Tarea tarea) throws BusinessException, NotFoundException , InvalidEstimationValueException{
+	public Tarea update(Tarea tarea) throws BusinessException, NotFoundException, InvalidEstimationValueException, NullListException, InvalidDestinationListException {
 
-		String listaDestino = listaDAO.getOne(tarea.getLista().getId()).getNombre();
+        Tarea tareaOrigen = null;
+        String listaDestino = null;
 
-		Tarea tareaOrigen = findById(tarea.getId());
+        try {
+            listaDestino = listaDAO.getOne(tarea.getLista().getId()).getNombre().toLowerCase();
+        } catch (EntityNotFoundException e) {
+            throw new NotFoundException();
+        } catch (NullPointerException e){
+            throw new NullListException();
+        }
+
+        try {
+            tareaOrigen = findById(tarea.getId());
+        } catch (NotFoundException e) {
+            throw new NotFoundException(e);
+        } catch (BusinessException e) {
+            throw new BusinessException(e);
+        }
+
 
 		if (tareaOrigen.getEstimacion() <= 0){
 			throw new InvalidEstimationValueException();
 		}
-		tareaOrigen.getLista().getNombre();
+
+		String listaOrigen = tareaOrigen.getLista().getNombre().toLowerCase();
+
+        HashMap<String, String[]> origenDestino = new HashMap<String, String[]>();
+        origenDestino.put("backlog", new String[]{"todo"});
+        origenDestino.put("todo", new String[]{"in progress", "waiting", "done"});
+        origenDestino.put("in progress", new String[]{"waiting", "todo", "done"});
+        origenDestino.put("waiting", new String[]{"in progress", "todo", "done"});
+        origenDestino.put("done", new String[]{});
+
+        if (!Arrays.asList(origenDestino.get(listaOrigen)).contains(listaDestino)){
+            System.out.println("Agarrate este try catch");
+            throw new InvalidDestinationListException();
+        }
 
 		try {
 			return tareaService.update(tarea);
@@ -102,5 +166,4 @@ public class TareaBusiness implements ITareaBusiness{
 			throw new BusinessException(e);
 		}
 	}
-
 }

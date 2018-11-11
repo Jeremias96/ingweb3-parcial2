@@ -1,5 +1,6 @@
 package ar.edu.iua.ingweb3proyecto.business.impl.util;
 
+import java.util.HashMap;
 import java.util.List;
 
 import ar.edu.iua.ingweb3proyecto.business.exception.BusinessException;
@@ -12,9 +13,8 @@ import ar.edu.iua.ingweb3proyecto.model.Tarea;
 @Service
 public class TareaService {
 
-	public List<Tarea> findAll() throws BusinessException{
-		List<Tarea> tareas = FactoryDAO.getInstance().getTareasDAO().findAll();
-		return tareas;
+	public List<Tarea> findAll(HashMap map) throws BusinessException{
+        return FactoryDAO.getInstance().getTareasDAO().findAll(map);
 	}
 
     public Tarea findById(Integer id) throws BusinessException, NotFoundException {
@@ -22,8 +22,7 @@ public class TareaService {
     }
 
 	public Tarea save(Tarea tarea) throws BusinessException{
-        Tarea t = (Tarea) FactoryDAO.getInstance().getTareasDAO().save(tarea);
-        return t;
+        return (Tarea) FactoryDAO.getInstance().getTareasDAO().save(tarea);
     }
 
 	public void delete(Integer id) throws BusinessException, NotFoundException {

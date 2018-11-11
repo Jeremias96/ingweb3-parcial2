@@ -4,6 +4,7 @@ import java.util.List;
 
 import ar.edu.iua.ingweb3proyecto.model.exception.AlreadyUsedListNameException;
 import ar.edu.iua.ingweb3proyecto.model.exception.InvalidListNameException;
+import ar.edu.iua.ingweb3proyecto.model.exception.NullListException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,6 +12,8 @@ import ar.edu.iua.ingweb3proyecto.business.IListaBusiness;
 import ar.edu.iua.ingweb3proyecto.business.exception.BusinessException;
 import ar.edu.iua.ingweb3proyecto.model.Lista;
 import ar.edu.iua.ingweb3proyecto.model.persistence.ListaRepository;
+
+import javax.persistence.EntityNotFoundException;
 
 @Service
 public class ListaBusiness implements IListaBusiness{
