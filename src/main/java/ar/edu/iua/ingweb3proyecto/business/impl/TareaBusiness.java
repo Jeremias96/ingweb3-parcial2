@@ -53,7 +53,7 @@ public class TareaBusiness implements ITareaBusiness{
     public List<Tarea> getAllSorted(String sort) throws BusinessException, InvalidSortException {
         try {
             HashMap<String, String> parameters = new HashMap<String, String>();
-            parameters.put("sort", sort);
+            parameters.put("sort", sort.toLowerCase());
             return tareaService.findAll(parameters);
 		} catch (InvalidSortException e) {
 			throw new InvalidSortException(e);
@@ -67,7 +67,7 @@ public class TareaBusiness implements ITareaBusiness{
         try {
             HashMap<String, String> parameters = new HashMap<String, String>();
             parameters.put("q", q);
-            parameters.put("sort", sort);
+            parameters.put("sort", sort.toLowerCase());
             return tareaService.findAll(parameters);
 		} catch (InvalidSortException e) {
 			throw new InvalidSortException(e);
