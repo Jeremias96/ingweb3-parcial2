@@ -1,40 +1,25 @@
 package ar.edu.iua.ingweb3final;
 
-/*import org.junit.Test;*/
-import ar.edu.iua.ingweb3proyecto.business.ITareaBusiness;
-import ar.edu.iua.ingweb3proyecto.business.exception.BusinessException;
-import ar.edu.iua.ingweb3proyecto.business.impl.TareaBusiness;
-import ar.edu.iua.ingweb3proyecto.model.Tarea;
-import ar.edu.iua.ingweb3proyecto.web.services.TareasRESTController;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 import java.util.HashMap;
 import java.util.List;
 
+import ar.edu.iua.ingweb3proyecto.business.exception.BusinessException;
+import ar.edu.iua.ingweb3proyecto.business.impl.TareaBusiness;
+import ar.edu.iua.ingweb3proyecto.model.Tarea;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-@RunWith(SpringRunner.class)
-@SpringBootTest
-public class Ingweb3FinalApplicationTests {
-
+public class test2 {
+	
 	@Test
-	public void contextLoads() {
-	}
-
-	@Test
-	void getAlgo() {
-		assertEquals(1, 1);
-	}
+	   void getAlgo() {
+		   assertEquals(1, 1);
+	   }
 
 	private TareaBusiness tb = new TareaBusiness();
-	private TareasRESTController trc = new TareasRESTController();
 
 	static HashMap<String, String> hashMapExpected;
 
@@ -51,7 +36,7 @@ public class Ingweb3FinalApplicationTests {
 
 	@Test
 	void getTareasOrdenadasPorPrioridad() throws BusinessException {
-		List<Tarea> resultList = tb.getAll();
+		List<Tarea> resultList = tb.getAllSorted("prioridad");
 
 		assertEquals(resultList.get(0).getNombre(), hashMapExpected.get("name_1"));
 		assertEquals(resultList.get(0).getPrioridad(), hashMapExpected.get("priority_1"));

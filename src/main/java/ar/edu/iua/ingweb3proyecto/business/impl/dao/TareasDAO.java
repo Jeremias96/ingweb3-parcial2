@@ -91,8 +91,6 @@ public class TareasDAO implements IGenericDAO<Tarea, Integer, HashMap>{
 	public Tarea save(Tarea tarea) throws BusinessException {
 		Session session = emf.unwrap(SessionFactory.class).openSession();
 		Transaction tx;
-		// cambiar factory para que devuelva tarea
-		//Tarea tarea = null;
 		Tarea t = new Tarea();
 
 		try {
@@ -100,9 +98,6 @@ public class TareasDAO implements IGenericDAO<Tarea, Integer, HashMap>{
 			int id = (Integer) session.save(tarea);
 
             t = session.get(Tarea.class, id);
-
-            // t.getLista().getNombre() == "backlog".caseLess() -> List error
-            // t.getLista() == null -> NOT FOUND
 
 			tx.commit();
 		} catch (HibernateException e) {

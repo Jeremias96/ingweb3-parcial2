@@ -34,7 +34,7 @@ public class ListaBusiness implements IListaBusiness{
 
         List<Lista> listaActual = getAll();
 
-        for( Lista l : listaActual){
+        for(Lista l : listaActual){
             if(l.getNombre().equalsIgnoreCase(nombre)){
                 throw new AlreadyUsedListNameException();
             }

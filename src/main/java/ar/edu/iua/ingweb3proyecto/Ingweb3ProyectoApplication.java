@@ -12,7 +12,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class Ingweb3ProyectoApplication implements CommandLineRunner {
 
-	private Logger log=LoggerFactory.getLogger(this.getClass());
+	private Logger log = LoggerFactory.getLogger(this.getClass());
 	
 	@Autowired
 	private DataSource dataSource; 
@@ -23,6 +23,6 @@ public class Ingweb3ProyectoApplication implements CommandLineRunner {
 	
 	@Override
 	public void run(String... args) throws Exception {
-		log.trace("DataSource={}",dataSource);
+		log.debug("DataSource actual = " + dataSource);
 	}
 }
