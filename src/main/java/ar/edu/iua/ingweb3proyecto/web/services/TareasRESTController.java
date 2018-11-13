@@ -2,7 +2,8 @@ package ar.edu.iua.ingweb3proyecto.web.services;
 
 import java.util.List;
 
-import ar.edu.iua.ingweb3proyecto.model.Lista;
+//import ar.edu.iua.ingweb3proyecto.model.Lista;
+import ar.edu.iua.ingweb3proyecto.business.exception.InvalidSortException;
 import ar.edu.iua.ingweb3proyecto.model.exception.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,7 +17,7 @@ import ar.edu.iua.ingweb3proyecto.business.ITareaBusiness;
 import ar.edu.iua.ingweb3proyecto.business.exception.BusinessException;
 import ar.edu.iua.ingweb3proyecto.model.Tarea;
 
-import javax.persistence.EntityNotFoundException;
+//import javax.persistence.EntityNotFoundException;
 
 @RestController
 @RequestMapping(Constantes.URL_TAREAS)
@@ -50,6 +51,9 @@ public class TareasRESTController {
                 log.info("Todas las tareas obtenidas");
                 return new ResponseEntity<List<Tarea>>(tareaBusiness.getAll(), HttpStatus.OK);
             }
+		} catch (InvalidSortException e){
+            log.error("TareasRESTController.lista() - INVALID SORT EXCEPTION - HTTP Status: " + HttpStatus.NOT_ACCEPTABLE + " (NOT ACCEPTABLE)");
+            return new ResponseEntity<List<Tarea>>(HttpStatus.NOT_ACCEPTABLE);
 		} catch (BusinessException e) {
             log.error("TareasRESTController.lista() - BUSINESS EXCEPTION - HTTP Status: " + HttpStatus.INTERNAL_SERVER_ERROR + " (INTERNAL SERVER ERROR)");
 			return new ResponseEntity<List<Tarea>>(HttpStatus.INTERNAL_SERVER_ERROR);

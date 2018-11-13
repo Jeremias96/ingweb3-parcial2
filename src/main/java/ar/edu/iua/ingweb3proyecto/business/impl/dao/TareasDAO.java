@@ -9,6 +9,7 @@ import javax.persistence.NoResultException;
 import javax.persistence.criteria.*;
 
 import ar.edu.iua.ingweb3proyecto.business.exception.BusinessException;
+import ar.edu.iua.ingweb3proyecto.business.exception.InvalidSortException;
 import ar.edu.iua.ingweb3proyecto.model.Lista;
 import ar.edu.iua.ingweb3proyecto.model.exception.NotFoundException;
 import org.hibernate.HibernateException;
@@ -42,20 +43,20 @@ public class TareasDAO implements IGenericDAO<Tarea, Integer, HashMap>{
 	}
 	
 	@Override
-	public List<Tarea> findAll(HashMap dic) throws BusinessException {
+	public List<Tarea> findAll(HashMap dic) throws BusinessException, InvalidSortException {
 		Session session = emf.unwrap(SessionFactory.class).openSession();
 		Transaction tx;
 		List<Tarea> resultListTareas = null;
 		
 		try {
-			tx = session.beginTransaction();
-			session.flush();
-			
-			CriteriaBuilder builder = session.getCriteriaBuilder();
+            tx = session.beginTransaction();
+            session.flush();
+
+            CriteriaBuilder builder = session.getCriteriaBuilder();
             CriteriaQuery<Tarea> query = builder.createQuery(Tarea.class);
             Root<Tarea> tarea = query.from(Tarea.class);
 
-			if (dic.isEmpty()) {                                                        //getAll
+            if (dic.isEmpty()) {                                                        //getAll
 
                 query.select(tarea);
 
@@ -64,11 +65,11 @@ public class TareasDAO implements IGenericDAO<Tarea, Integer, HashMap>{
                 Join<Tarea, Lista> lista = tarea.join("lista", JoinType.INNER);
                 query.select(tarea).where(builder.equal(lista.get("nombre"), dic.get("q")));
 
-            } else if (dic.containsKey("sort") && !dic.containsKey("q")) {			    //getAllSorted
+            } else if (dic.containsKey("sort") && !dic.containsKey("q")) {                //getAllSorted
 
                 query.orderBy(builder.asc(tarea.get(dic.get("sort").toString())));
 
-            } else if (dic.containsKey("q") && (dic.containsKey("sort"))) {			    //getByListaSorted
+            } else if (dic.containsKey("q") && (dic.containsKey("sort"))) {                //getByListaSorted
 
                 Join<Tarea, Lista> lista = tarea.join("lista", JoinType.INNER);
                 query.select(tarea).where(builder.equal(lista.get("nombre"), dic.get("q")))
@@ -77,9 +78,11 @@ public class TareasDAO implements IGenericDAO<Tarea, Integer, HashMap>{
             }
 
             resultListTareas = session.createQuery(query).getResultList();
-			tx.commit();
+            tx.commit();
+		} catch (IllegalArgumentException e) {
+            throw new InvalidSortException(e);
 		} catch (HibernateException e) {
-            throw new BusinessException();
+            throw new BusinessException(e);
         } finally {
             session.close();
         }
@@ -101,7 +104,7 @@ public class TareasDAO implements IGenericDAO<Tarea, Integer, HashMap>{
 
 			tx.commit();
 		} catch (HibernateException e) {
-            throw new BusinessException();
+            throw new BusinessException(e);
 		} finally {
 			session.close();
 		}
@@ -158,7 +161,7 @@ public class TareasDAO implements IGenericDAO<Tarea, Integer, HashMap>{
         } catch (IllegalArgumentException e) {
             throw new NotFoundException(e);
         } catch (HibernateException e) {
-            throw new BusinessException();
+            throw new BusinessException(e);
         } finally {
             session.close();
         }
@@ -185,7 +188,7 @@ public class TareasDAO implements IGenericDAO<Tarea, Integer, HashMap>{
 
             tx.commit();
         } catch (HibernateException e) {
-            throw new BusinessException();
+            throw new BusinessException(e);
         } finally {
             session.close();
         }

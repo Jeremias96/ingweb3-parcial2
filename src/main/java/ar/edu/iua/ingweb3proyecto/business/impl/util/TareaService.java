@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import ar.edu.iua.ingweb3proyecto.business.exception.BusinessException;
+import ar.edu.iua.ingweb3proyecto.business.exception.InvalidSortException;
 import ar.edu.iua.ingweb3proyecto.model.exception.NotFoundException;
 import org.springframework.stereotype.Service;
 
@@ -13,7 +14,7 @@ import ar.edu.iua.ingweb3proyecto.model.Tarea;
 @Service
 public class TareaService {
 
-	public List<Tarea> findAll(HashMap map) throws BusinessException{
+	public List<Tarea> findAll(HashMap map) throws BusinessException, InvalidSortException {
         return FactoryDAO.getInstance().getTareasDAO().findAll(map);
 	}
 

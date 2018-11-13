@@ -1,6 +1,7 @@
 package ar.edu.iua.ingweb3proyecto.business.impl.dao;
 
 import ar.edu.iua.ingweb3proyecto.business.exception.BusinessException;
+import ar.edu.iua.ingweb3proyecto.business.exception.InvalidSortException;
 import ar.edu.iua.ingweb3proyecto.model.Tarea;
 import ar.edu.iua.ingweb3proyecto.model.exception.NotFoundException;
 
@@ -10,7 +11,7 @@ import java.util.List;
 
 public interface IGenericDAO <T, ID, D extends Serializable>{
 
-	public List<T> findAll(D dic) throws BusinessException;
+	public List<T> findAll(D dic) throws BusinessException, InvalidSortException;
 	
 	public T save(T object) throws BusinessException;
 	

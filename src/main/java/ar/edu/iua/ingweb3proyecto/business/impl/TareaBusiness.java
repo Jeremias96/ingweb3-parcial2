@@ -3,6 +3,7 @@ package ar.edu.iua.ingweb3proyecto.business.impl;
 import java.sql.Date;
 import java.util.*;
 
+import ar.edu.iua.ingweb3proyecto.business.exception.InvalidSortException;
 import ar.edu.iua.ingweb3proyecto.model.Lista;
 import ar.edu.iua.ingweb3proyecto.model.exception.*;
 import ar.edu.iua.ingweb3proyecto.model.persistence.ListaRepository;
@@ -49,23 +50,27 @@ public class TareaBusiness implements ITareaBusiness{
     }
 
     @Override
-    public List<Tarea> getAllSorted(String sort) throws BusinessException {
+    public List<Tarea> getAllSorted(String sort) throws BusinessException, InvalidSortException {
         try {
             HashMap<String, String> parameters = new HashMap<String, String>();
             parameters.put("sort", sort);
             return tareaService.findAll(parameters);
+		} catch (InvalidSortException e) {
+			throw new InvalidSortException(e);
         } catch (Exception e) {
             throw new BusinessException(e);
         }
     }
 
     @Override
-    public List<Tarea> getByListaSorted(String q, String sort) throws BusinessException {
+    public List<Tarea> getByListaSorted(String q, String sort) throws BusinessException, InvalidSortException {
         try {
             HashMap<String, String> parameters = new HashMap<String, String>();
             parameters.put("q", q);
             parameters.put("sort", sort);
             return tareaService.findAll(parameters);
+		} catch (InvalidSortException e) {
+			throw new InvalidSortException(e);
         } catch (Exception e) {
             throw new BusinessException(e);
         }
