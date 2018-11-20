@@ -159,7 +159,6 @@ public class TareaBusiness implements ITareaBusiness{
         origenDestino.put("done", new String[]{});
 
         if (!Arrays.asList(origenDestino.get(listaOrigen)).contains(listaDestino)){
-            System.out.println("Agarrate este try catch");
             throw new InvalidDestinationListException();
         }
 
