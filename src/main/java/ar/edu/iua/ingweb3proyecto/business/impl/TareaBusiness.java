@@ -94,10 +94,14 @@ public class TareaBusiness implements ITareaBusiness{
 
 		try {
 			lista = listaDAO.getOne(tarea.getLista().getId());
+			tarea.getLista().setNombre(lista.getNombre());
+			tarea.getLista().setSprint(lista.getSprint());
 		} catch (EntityNotFoundException e) {
 			throw new NotFoundException();
 		} catch (NullPointerException e){
-			throw new NullListException();
+			//throw new NullListException();
+			lista = listaDAO.findByNombre("backlog");
+			tarea.setLista(lista);
 		}
 
 		if (!lista.getNombre().equalsIgnoreCase("backlog")) {

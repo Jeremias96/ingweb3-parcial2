@@ -1,0 +1,51 @@
+<h1>{{titulo}}</h1>
+
+<button class="btn btn-success" ng-click="relocate('/')">Volver</button>
+<i ng-click="refresh()" class="fas fa-sync-alt"></i>
+
+<div class="panel panel-default">
+	<div class="panel-heading">Nueva Lista</div>
+	<div class="panel-body">
+		Nombre: <input type="text" ng-model="instanciaL.nombre"/><br/>
+		Sprint: <input type="text" ng-model="instanciaL.sprint"/><br/>
+	</div>
+	<div class="panel-footer">
+		<button ng-show="mostrarBotonGuardarLista()" class="btn btn-primary" ng-click="agregarLista()">Guardar</button>
+	</div>
+</div>
+
+<div class="panel panel-default">
+	<div class="panel-heading">Nueva Tarea</div>
+	<div class="panel-body">
+		Nombre: <input type="text" ng-model="instanciaT.nombre"/><br/>
+		Fecha de creacion: <input type="text" ng-model="instanciaT.fechaCreacion"/><br/>
+		Fecha de modificacion: <input type="text" ng-model="instanciaT.fechaModificacion"/><br/>
+		Prioridad: <input type="text" ng-model="instanciaT.prioridad"/><br/>
+		Estimacion: <input type="number" ng-model="instanciaT.estimacion"/><br/>
+	</div>
+	<div class="panel-footer">
+		<button ng-show="mostrarBotonGuardarTarea()" class="btn btn-primary" ng-click="agregarTarea()">Guardar</button>
+	</div>
+</div>
+
+<!-- <ul ng-repeat="p in listas">
+{{p.id}} - <span ng-hide="p.id==instanciaM.id">{{p.nombre}} - {{p.sprint}} - </span> -->
+
+<ul ng-repeat="(lista,tarea) in tareas">
+	<!-- <li ng-repeat="p in listas"> -->
+
+	<!-- <i ng-click="borrar(p.id)" class="fas fa-trash-alt"></i>
+	<i ng-click="startEdit(p)" class="fas fa-edit"></i></span>
+	<span ng-show="p.id==instanciaM.id">
+	<input type="text" ng-model="instanciaM.descripcion"/> - <input type="number" ng-model="instanciaM.precio"/>
+	</span> -->
+	<!-- </li> -->
+
+	<lh>
+		{{lista}} -
+	</lh>
+
+	<li ng-repeat="t in tarea">
+		{{t.id}} - {{t.nombre}} - {{t.fechaCreacion}} - {{t.fechaModificacion}} - {{t.prioridad}} - {{t.estimacion}} - {{t.lista}} -
+	</li>
+</ul>

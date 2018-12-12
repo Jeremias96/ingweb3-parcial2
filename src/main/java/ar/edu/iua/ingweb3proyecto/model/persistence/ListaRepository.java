@@ -8,4 +8,5 @@ import ar.edu.iua.ingweb3proyecto.model.Lista;
 @Repository
 public interface ListaRepository extends JpaRepository <Lista, Integer>{
 
+    public Lista findByNombre(String nombre);
 }
