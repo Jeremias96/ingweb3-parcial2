@@ -39,8 +39,6 @@ angular.module('iw3')
                 }
             );
         }
-        var keys = Object.keys($scope.tareas);
-        var values = Object.values($scope.tareas);
 	};
 	
 	$scope.agregarLista=function(){
@@ -58,33 +56,65 @@ angular.module('iw3')
         tareasService.add($scope.instanciaT).then(
             function(resp){
                 $scope.tareas[resp.data.lista.nombre] = resp.data;
-                $scope.refresh();
+                //$scope.refresh();
                 $scope.instanciaT={};
             },
             function(err){}
         );
     };
-	/*$scope.borrar=function(id){
-		if(!confirm("Desea eliminar el producto seleccionado?"))
+	$scope.borrar=function(id){
+		if(!confirm("Desea eliminar la tarea seleccionada?"))
 			return;
-        listasService.remove(id).then(
-				function(resp){
-					if(resp.status==200) {
-						$scope.data.forEach(function(o,i){
-							if(o.id==id) {
-								$scope.data.splice(i,1);
-							}
-						});
-					}
-				}, 
-				function(err){} 
-			);
-	};*/
-	
-	/*$scope.startEdit=function(p){
-		$scope.instanciaM=p;
-	};*/
-	
+        tareasService.remove(id).then(
+            function(resp){
+                if(resp.status==200) {
+                    $scope.refresh();
+                    /*$scope.tareas.forEach(function(o,i){
+                        if(o.id==id) {
+                            $scope.tareas.splice(i,1);
+                        }
+                        });*/
+                }
+            },
+            function(err){}
+        );
+	};
+
+	$scope.sortBy=function(){
+        for (var lista in $scope.listas) {
+            var key = $scope.listas[lista];
+            $scope.tareas[key.nombre] = [];
+
+            tareasService.getByListSorted(key.nombre, $scope.sort).then(
+                function (resp) {
+                    if (resp.data[0])
+                        $scope.tareas[resp.data[0].lista.nombre] = resp.data;
+                },
+                function (err) {
+                }
+            );
+        }
+    };
+
+	$scope.moverLista=function(id, t){
+        $log.log("Mover lista");
+        $log.log(id);
+        $log.log(t);
+        for (var lista in $scope.listas) {
+            if ($scope.listas[lista].nombre.toLowerCase() == t){
+                var t2 = JSON.stringify({"lista": $scope.listas[lista]});
+                $log.log(t2);
+                tareasService.update(id, t2).then(   //ID de la tarea que quiero mover, tarea con id de lista a la que quiero mover
+                    function (resp) {
+
+                    },
+                    function (err) {
+                    }
+                );
+            }
+        }
+    };
+
 	$scope.mostrarBotonGuardarLista=function(){
 		var i=$scope.instanciaL;
 		return i.nombre &&  i.nombre.length>0 && i.sprint && i.sprint.length>0;

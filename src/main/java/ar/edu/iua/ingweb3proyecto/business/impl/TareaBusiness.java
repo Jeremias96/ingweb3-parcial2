@@ -53,7 +53,7 @@ public class TareaBusiness implements ITareaBusiness{
     public List<Tarea> getAllSorted(String sort) throws BusinessException, InvalidSortException {
         try {
             HashMap<String, String> parameters = new HashMap<String, String>();
-            parameters.put("sort", sort.toLowerCase());
+            parameters.put("sort", sort.toLowerCase());	//.toLowerCase()
             return tareaService.findAll(parameters);
 		} catch (InvalidSortException e) {
 			throw new InvalidSortException(e);
@@ -67,7 +67,7 @@ public class TareaBusiness implements ITareaBusiness{
         try {
             HashMap<String, String> parameters = new HashMap<String, String>();
             parameters.put("q", q);
-            parameters.put("sort", sort.toLowerCase());
+            parameters.put("sort", sort.toLowerCase()); //.toLowerCase()
             return tareaService.findAll(parameters);
 		} catch (InvalidSortException e) {
 			throw new InvalidSortException(e);
@@ -98,18 +98,19 @@ public class TareaBusiness implements ITareaBusiness{
 			tarea.getLista().setSprint(lista.getSprint());
 		} catch (EntityNotFoundException e) {
 			throw new NotFoundException();
-		} catch (NullPointerException e){
+		} catch (NullPointerException e) {
 			//throw new NullListException();
 			lista = listaDAO.findByNombre("backlog");
 			tarea.setLista(lista);
 		}
 
-		if (!lista.getNombre().equalsIgnoreCase("backlog")) {
-			throw new InvalidListNameException();
-		}
-
 		try {
+			if (!lista.getNombre().equalsIgnoreCase("backlog")) {
+				throw new InvalidListNameException();
+			}
 			return tareaService.save(tarea);
+		} catch (NullPointerException f) {
+			throw new NullListException();
 		} catch (Exception e) {
 			throw new BusinessException(e);
 		}

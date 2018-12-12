@@ -10,6 +10,10 @@ angular.module('iw3')
 		templateUrl : 'views/listas.html',
 		controller : 'ListasController'
 	})
+	.when('/listas2',{
+		templateUrl : 'views/listas2.html',
+		controller : 'ListasController'
+	})
 	.otherwise({
 		redirectTo: '/'
 	});

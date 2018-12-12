@@ -1,4 +1,4 @@
-<h1>{{titulo}}</h1>
+<h1>{{titulo}} andando / No modificar</h1>
 
 <button class="btn btn-success" ng-click="relocate('/')">Volver</button>
 <i ng-click="refresh()" class="fas fa-sync-alt"></i>
@@ -31,24 +31,38 @@
 <!-- <ul ng-repeat="p in listas">
 {{p.id}} - <span ng-hide="p.id==instanciaM.id">{{p.nombre}} - {{p.sprint}} - </span> -->
 
-<select class="form-control" ng-model="sort" ng-change="sortBy()">
-	<option value="" selected disabled hidden>Ordenar por...</option>
+<select ng-model="sort" ng-change="sortBy()">
 	<option value="fechacreacion">Fecha de creacion</option>
 	<option value="prioridad">Prioridad</option>
 </select>
 
-<table class="table table-bordered" ng-repeat="(lista,tarea) in tareas">
-	<thead> <tr> <th scope="row" colspan="9">{{lista}}</th> </tr></thead>
+<table class="table table-bordered">
 	<tbody>
-		<tr ng-repeat="t in tarea">
-			<td>{{t.id}}</td>
-			<td>{{t.nombre}}</td>
-			<td>{{t.fechacreacion}}</td>
-			<td>{{t.fechamodificacion}}</td>
-			<td>{{t.prioridad}}</td>
-			<td>{{t.estimacion}}</td>
-			<td><i ng-click="borrar(t.id)" class="fas fa-trash-alt"></i></td>
-			<td><i ng-click="moverLista(t.id, 'todo')" class="fas fa-edit"></i></td>
-		</tr>
+	<tr ng-repeat="(lista,tarea) in tareas">	//tr
+		<th scope="row">{{lista}}</th>		//th
+		<td ng-repeat="t in tarea">{{t.id}} - {{t.nombre}} - {{t.fechacreacion}} - {{t.fechamodificacion}} - {{t.prioridad}} - {{t.estimacion}} - {{t.lista}} -		//td
+			<i ng-click="borrar(t.id)" class="fas fa-trash-alt"></i>
+			<i ng-click="moverLista(t.id, 'todo')" class="fas fa-edit"></i>
+		</td>
+	</tr>
 	</tbody>
 </table>
+
+<ul ng-repeat="(lista,tarea) in tareas">
+	<lh>
+		{{lista}} -
+	</lh>
+	<li ng-repeat="t in tarea">
+		{{t.id}} - {{t.nombre}} - {{t.fechacreacion}} - {{t.fechamodificacion}} - {{t.prioridad}} - {{t.estimacion}} - {{t.lista}} -
+		<i ng-click="borrar(t.id)" class="fas fa-trash-alt"></i>
+		<i ng-click="moverLista(t.id, 'todo')" class="fas fa-edit"></i>
+	</li>
+	<!-- <li ng-repeat="p in listas"> -->
+
+	<!-- <i ng-click="borrar(p.id)" class="fas fa-trash-alt"></i>
+	<i ng-click="startEdit(p)" class="fas fa-edit"></i></span>
+	<span ng-show="p.id==instanciaM.id">
+	<input type="text" ng-model="instanciaM.descripcion"/> - <input type="number" ng-model="instanciaM.precio"/>
+	</span> -->
+	<!-- </li> -->
+</ul>

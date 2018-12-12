@@ -23,10 +23,10 @@ public class Tarea {
 	private String nombre;
 	
 	@Column(name = "fecha_creacion")
-	private Date fechaCreacion;
+	private Date fechacreacion;
 	
 	@Column(name = "fecha_modificacion")
-	private Date fechaModificacion;
+	private Date fechamodificacion;
 
     @Column(name = "prioridad", length = 10)
 	private String prioridad;
@@ -43,12 +43,12 @@ public class Tarea {
 		
 	}
 
-	public Tarea(int id, String nombre, Date fechaCreacion, Date fechaModificacion, String prioridad, Lista lista, int estimacion) {
+	public Tarea(int id, String nombre, Date fechacreacion, Date fechamodificacion, String prioridad, Lista lista, int estimacion) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
-		this.fechaCreacion = fechaCreacion;
-		this.fechaModificacion = fechaModificacion;
+		this.fechacreacion = fechacreacion;
+		this.fechamodificacion = fechamodificacion;
 		this.prioridad = prioridad;
 		this.lista = lista;
 		this.estimacion = estimacion;
@@ -70,20 +70,20 @@ public class Tarea {
 		this.nombre = nombre;
 	}
 
-	public Date getFechaCreacion() {
-		return fechaCreacion;
+	public Date getFechacreacion() {
+		return fechacreacion;
 	}
 
-	public void setFechaCreacion(Date fechaCreacion) {
-		this.fechaCreacion = fechaCreacion;
+	public void setFechacreacion(Date fechacreacion) {
+		this.fechacreacion = fechacreacion;
 	}
 
-	public Date getFechaModificacion() {
-		return fechaModificacion;
+	public Date getFechamodificacion() {
+		return fechamodificacion;
 	}
 
-	public void setFechaModificacion(Date fechaModificacion) {
-		this.fechaModificacion = fechaModificacion;
+	public void setFechamodificacion(Date fechamodificacion) {
+		this.fechamodificacion = fechamodificacion;
 	}
 
     public String getPrioridad() {
@@ -112,6 +112,6 @@ public class Tarea {
 
 
 	public String toString(){
-        return "Tarea: " + this.id + "|" + this.nombre + "|" + this.fechaCreacion + "|" + this.fechaModificacion + "|" + this.prioridad + "|" + this.lista + "|" + this.estimacion;
+        return "Tarea: " + this.id + "|" + this.nombre + "|" + this.fechacreacion + "|" + this.fechamodificacion + "|" + this.prioridad + "|" + this.lista + "|" + this.estimacion;
     }
 }
