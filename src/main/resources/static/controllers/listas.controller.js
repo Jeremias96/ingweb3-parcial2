@@ -122,7 +122,7 @@ angular.module('iw3')
 
     $scope.mostrarBotonGuardarTarea=function(){
         var i=$scope.instanciaT;
-        return i.nombre &&  i.nombre.length>0 && i.fechaCreacion && i.fechaCreacion.length>0;
+        return i.nombre &&  i.nombre.length>0 && i.fechacreacion && i.fechacreacion.length>0;
     };
 	
 	

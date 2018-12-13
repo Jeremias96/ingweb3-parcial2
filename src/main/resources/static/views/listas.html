@@ -37,18 +37,22 @@
 	<option value="prioridad">Prioridad</option>
 </select>
 
-<table class="table table-bordered" ng-repeat="(lista,tarea) in tareas">
-	<thead> <tr> <th scope="row" colspan="9">{{lista}}</th> </tr></thead>
-	<tbody>
-		<tr ng-repeat="t in tarea">
-			<td>{{t.id}}</td>
-			<td>{{t.nombre}}</td>
-			<td>{{t.fechacreacion}}</td>
-			<td>{{t.fechamodificacion}}</td>
-			<td>{{t.prioridad}}</td>
-			<td>{{t.estimacion}}</td>
-			<td><i ng-click="borrar(t.id)" class="fas fa-trash-alt"></i></td>
-			<td><i ng-click="moverLista(t.id, 'todo')" class="fas fa-edit"></i></td>
-		</tr>
-	</tbody>
-</table>
+<div class="col-xs-3" ng-repeat="(lista,tarea) in tareas">
+    <div class="table-responsive">
+        <table class="table table-bordered"">
+            <thead> <tr> <th scope="row" colspan="9">{{lista}}</th> </tr></thead>
+            <tbody>
+                <tr ng-repeat="t in tarea">
+                    <td>{{t.id}}</td>
+                    <td>{{t.nombre}}</td>
+                    <td>{{t.fechacreacion}}</td>
+                    <td>{{t.fechamodificacion}}</td>
+                    <td>{{t.prioridad}}</td>
+                    <td>{{t.estimacion}}</td>
+                    <td><i ng-click="borrar(t.id)" class="fas fa-trash-alt"></i></td>
+                    <td><i ng-click="moverLista(t.id, 'todo')" class="fas fa-edit"></i></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

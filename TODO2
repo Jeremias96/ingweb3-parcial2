@@ -1,41 +1,22 @@
-Model
-	- TODO: LISTAS ✓
-	- TODO: TAREAS ✓
+BACKEND
+	- TODO: MANEJAR FECHAS
+	- TODO: UPDATE TAREA
 
-SERVICIOS
-	- TODO: CREAR LISTAS ✓
-	- TODO: CREAR TAREAS ✓
-	- TODO: MOSTRAR TAREAS ✓
-	- TODO: MOVER TAREAS ✓
-	- TODO: BORRAR TAREAS ✓
+FRONTEND
+	- TODO: DRAG AND DROP
+	- TODO: MOSTRAR QUE ATRIBUTOS SON EN LA TABLA
+	- TODO: MANEJAR LOS STATUS CODE
+	- TODO: CORREGIR FORMATO FECHAS
+	- TODO: QUE CARAJO HACEMOS CON LOS SPRINT
 
-BUGS:
-    - TODO: CONTEMPLAR MAS EXCEPCIONES
-    - TODO: VER SERVER ERROR AL NO ENCONTRAR LA LISTA AL CREAR TAREA, por que hay que pasar el id de lista : NOT FOUND ✓
-    - TODO: VER SERVER ERROR AL BORRAR TAREA QUE NO EXISTE > NOT FOUND ✓
-    - TODO: VER SERVER ERROR AL UPDATEAR UNA TAREA QUE NO EXISTE > NOT FOUND ✓
-    - TODO: VER ERROR AL UPDATEAR A NULL LA LISTA DE UNA TAREA CUANDO INGRESAMOS UN LISTA QUE NO EXISTE > NOR FOUND ✓
+	- TODO: GET LISTA ✓
+	- TODO: GET TAREA q ✓
+	- TODO: GET TAREA sort ✓
+	- TODO: PUT LISTA ✓
+	- TODO: PUT TAREA ✓
+	- TODO: POST TAREA ✓
+	- TODO: DELETE TAREA ✓
 
-RESTRICCIONES
-	- TODO: Las listas sólo pueden tener los nombres: backlog, TODO, in progress, waiting, done y no pueden estar repetidos. ✓
-	- TODO: Cuando se crea una tarea, obligatoriamente debe ser asignada a la lista "backlog", caso contrario debe devolver un error. ✓
-	- TODO: Se debe permitir mover una tarea del backlog sólo a TODO, asegurandonos que posee una estimación definida. ✓
-	- TODO: Las tareas pueden moverse de TODO a in progress y waiting libremente, sin embargo una vez que pasaron a DONE no pueden moverse a ninguna otra lista. ✓
-	- TODO: Se debe poder consultar el listado de tareas, para lo cual se podría elegir una lista en particular, ordenados por prioridad o por fecha de creación. ✓
-
-HERRAMIENTAS
-	- spring boot
-	- hibernate
-	- maven
-
-PATRONES DE DISEÑO
-	- MVC
-	- DAO
-	- Factory
-
-LOGS
-    - TODO: Logs
-
-TEST
-	- TODO: Postman
-	- TODO: Test Unitarios
+FUNCIONES
+    - TODO: LOGIN
+    - TODO: ROLES
