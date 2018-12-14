@@ -19,6 +19,7 @@
     "angular-ui-select": "~0.19.8",
     "adapt-strap":"~2.6.1",
     "angular-dragdrop":"~1.0.0",
+    "angular-drag-and-drop-lists":"~2.1.0",
     "angular-ui-notification":"~0.3.6",
     "moment": "~2.21.0",
     "angular-chart.js": "~1.1.0",

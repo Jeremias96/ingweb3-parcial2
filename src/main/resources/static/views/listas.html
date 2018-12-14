@@ -3,6 +3,52 @@
 <button class="btn btn-success" ng-click="relocate('/')">Volver</button>
 <i ng-click="refresh()" class="fas fa-sync-alt"></i>
 
+<!-- <ul ng-repeat="p in listas">
+{{p.id}} - <span ng-hide="p.id==instanciaM.id">{{p.nombre}} - {{p.sprint}} - </span> -->
+
+<select class="form-control" ng-model="sort" ng-change="sortBy()">
+	<option value="" selected disabled hidden>Ordenar por...</option>
+	<option value="fechacreacion">Fecha de creacion</option>
+	<option value="prioridad">Prioridad</option>
+</select>
+
+<div class="col-xs-5" dnd-list="tarea" dnd-drop="moverLista(item,lista)" ng-repeat="(lista,tarea) in tareas">
+    <div class="table-responsive">
+        <table class="table table-bordered">
+            <thead>
+				<tr>
+					<th scope="row" colspan="7">{{lista}}</th>
+				</tr>
+				<tr>
+					<th scope="row">ID</th>
+					<th scope="row">Tarea</th>
+					<th scope="row">Fecha de creacion</th>
+					<th scope="row">Fecha de modificacion</th>
+					<th scope="row">Prioridad</th>
+					<th scope="row">Estimacion</th>
+					<th scope="row"></th>
+				</tr>
+			</thead>
+            <tbody>
+                <tr ng-repeat="t in tarea"
+					dnd-draggable="t"
+					dnd-effect-allowed="move">
+                    <td>{{t.id}}</td>
+                    <td>{{t.nombre}}</td>
+                    <td>{{changeDate(t.fechacreacion)}}</td>
+                    <td>{{changeDate(t.fechamodificacion)}}</td>
+                    <td>{{t.prioridad}}</td>
+                    <td>{{t.estimacion}}</td>
+                    <td><i ng-click="borrar(t.id)" class="fas fa-trash-alt"></i></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!--
+dnd-moved="tarea.splice($index, 1)"
+
 <div class="panel panel-default">
 	<div class="panel-heading">Nueva Lista</div>
 	<div class="panel-body">
@@ -26,47 +72,4 @@
 	<div class="panel-footer">
 		<button ng-show="mostrarBotonGuardarTarea()" class="btn btn-primary" ng-click="agregarTarea()">Guardar</button>
 	</div>
-</div>
-
-<!-- <ul ng-repeat="p in listas">
-{{p.id}} - <span ng-hide="p.id==instanciaM.id">{{p.nombre}} - {{p.sprint}} - </span> -->
-
-<select class="form-control" ng-model="sort" ng-change="sortBy()">
-	<option value="" selected disabled hidden>Ordenar por...</option>
-	<option value="fechacreacion">Fecha de creacion</option>
-	<option value="prioridad">Prioridad</option>
-</select>
-
-<div class="col-xs-5" ng-repeat="(lista,tarea) in tareas">
-    <div class="table-responsive">
-        <table class="table table-bordered"">
-            <thead>
-				<tr>
-					<th scope="row" colspan="8">{{lista}}</th>
-				</tr>
-				<tr>
-					<th scope="row">ID</th>
-					<th scope="row">Tarea</th>
-					<th scope="row">Fecha de creacion</th>
-					<th scope="row">Fecha de modificacion</th>
-					<th scope="row">Prioridad</th>
-					<th scope="row">Estimacion</th>
-					<th scope="row"></th>
-					<th scope="row"></th>
-				</tr>
-			</thead>
-            <tbody>
-                <tr ng-repeat="t in tarea">
-                    <td>{{t.id}}</td>
-                    <td>{{t.nombre}}</td>
-                    <td>{{changeDate(t.fechacreacion)}}</td>
-                    <td>{{changeDate(t.fechamodificacion)}}</td>
-                    <td>{{t.prioridad}}</td>
-                    <td>{{t.estimacion}}</td>
-                    <td><i ng-click="borrar(t.id)" class="fas fa-trash-alt"></i></td>
-                    <td><i ng-click="moverLista(t.id, 'todo')" class="fas fa-edit"></i></td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-</div>
+</div> -->
