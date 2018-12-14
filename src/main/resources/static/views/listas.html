@@ -37,16 +37,30 @@
 	<option value="prioridad">Prioridad</option>
 </select>
 
-<div class="col-xs-3" ng-repeat="(lista,tarea) in tareas">
+<div class="col-xs-5" ng-repeat="(lista,tarea) in tareas">
     <div class="table-responsive">
         <table class="table table-bordered"">
-            <thead> <tr> <th scope="row" colspan="9">{{lista}}</th> </tr></thead>
+            <thead>
+				<tr>
+					<th scope="row" colspan="8">{{lista}}</th>
+				</tr>
+				<tr>
+					<th scope="row">ID</th>
+					<th scope="row">Tarea</th>
+					<th scope="row">Fecha de creacion</th>
+					<th scope="row">Fecha de modificacion</th>
+					<th scope="row">Prioridad</th>
+					<th scope="row">Estimacion</th>
+					<th scope="row"></th>
+					<th scope="row"></th>
+				</tr>
+			</thead>
             <tbody>
                 <tr ng-repeat="t in tarea">
                     <td>{{t.id}}</td>
                     <td>{{t.nombre}}</td>
-                    <td>{{t.fechacreacion}}</td>
-                    <td>{{t.fechamodificacion}}</td>
+                    <td>{{changeDate(t.fechacreacion)}}</td>
+                    <td>{{changeDate(t.fechamodificacion)}}</td>
                     <td>{{t.prioridad}}</td>
                     <td>{{t.estimacion}}</td>
                     <td><i ng-click="borrar(t.id)" class="fas fa-trash-alt"></i></td>

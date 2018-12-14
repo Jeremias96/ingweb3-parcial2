@@ -70,16 +70,22 @@ public class Tarea {
 		this.nombre = nombre;
 	}
 
-	public Date getFechacreacion() {
-		return fechacreacion;
+	public long getFechacreacion() {
+		if (fechacreacion != null)
+			return fechacreacion.getTime();
+		else
+			return 0;
 	}
 
 	public void setFechacreacion(Date fechacreacion) {
 		this.fechacreacion = fechacreacion;
 	}
 
-	public Date getFechamodificacion() {
-		return fechamodificacion;
+	public long getFechamodificacion() {
+		if (fechamodificacion != null)
+			return fechamodificacion.getTime();
+		else
+			return 0;
 	}
 
 	public void setFechamodificacion(Date fechamodificacion) {

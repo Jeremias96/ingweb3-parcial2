@@ -1,5 +1,6 @@
 package ar.edu.iua.ingweb3proyecto.business.impl.dao;
 
+import java.util.Date;
 import java.util.Dictionary;
 import java.util.HashMap;
 import java.util.List;
@@ -183,6 +184,7 @@ public class TareasDAO implements IGenericDAO<Tarea, Integer, HashMap>{
             t = session.get(Tarea.class, tarea.getId());
 
             t.setLista(l);
+            t.setFechamodificacion(new Date());
 
             session.update(t);
 

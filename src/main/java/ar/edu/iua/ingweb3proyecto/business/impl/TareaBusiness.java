@@ -1,6 +1,5 @@
 package ar.edu.iua.ingweb3proyecto.business.impl;
 
-import java.sql.Date;
 import java.util.*;
 
 import ar.edu.iua.ingweb3proyecto.business.exception.InvalidSortException;
@@ -108,6 +107,10 @@ public class TareaBusiness implements ITareaBusiness{
 			if (!lista.getNombre().equalsIgnoreCase("backlog")) {
 				throw new InvalidListNameException();
 			}
+			if (tarea.getFechacreacion() <= 0){
+				tarea.setFechacreacion(new Date());	//Usar fecha del sistema
+				tarea.setFechamodificacion(new Date());
+			}
 			return tareaService.save(tarea);
 		} catch (NullPointerException f) {
 			throw new NullListException();
@@ -148,7 +151,6 @@ public class TareaBusiness implements ITareaBusiness{
         } catch (BusinessException e) {
             throw new BusinessException(e);
         }
-
 
 		if (tareaOrigen.getEstimacion() <= 0){
 			throw new InvalidEstimationValueException();

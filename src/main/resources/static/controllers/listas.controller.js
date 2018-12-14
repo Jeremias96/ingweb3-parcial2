@@ -31,12 +31,12 @@ angular.module('iw3')
             tareasService.getByList(key.nombre).then(
                 function (resp) {
                     //var clave = key.nombre;
-                    if (resp.data[0])
+                    if (resp.data[0]) {
                         $scope.tareas[resp.data[0].lista.nombre] = resp.data;
+                    }
                     //$log.log($scope.tareas[key.nombre]);
                 },
-                function (err) {
-                }
+                function (err) {}
             );
         }
 	};
@@ -59,7 +59,8 @@ angular.module('iw3')
                 //$scope.refresh();
                 $scope.instanciaT={};
             },
-            function(err){}
+            function(err){
+            }
         );
     };
 	$scope.borrar=function(id){
@@ -76,7 +77,8 @@ angular.module('iw3')
                         });*/
                 }
             },
-            function(err){}
+            function(err){
+            }
         );
 	};
 
@@ -124,7 +126,14 @@ angular.module('iw3')
         var i=$scope.instanciaT;
         return i.nombre &&  i.nombre.length>0 && i.fechacreacion && i.fechacreacion.length>0;
     };
-	
+
+    $scope.changeDate=function(milliseconds){
+        var raw = new Date(milliseconds);
+        var day = raw.getDate();
+        var month = raw.getMonth(); //Be careful! January is 0 not 1
+        var year = raw.getFullYear();
+        return day + "-" +(month + 1) + "-" + year;
+    }
 	
 	$scope.refresh();
 });
