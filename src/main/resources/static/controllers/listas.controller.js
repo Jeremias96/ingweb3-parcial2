@@ -146,6 +146,10 @@ angular.module('iw3')
         return i.nombre &&  i.nombre.length>0 && i.fechacreacion && i.fechacreacion.length>0;
     };
 
+    $scope.mostrarListaVacia=function(lista){
+        return $scope.tareas[lista].length <= 0;
+    };
+
     $scope.changeDate=function(milliseconds){
         var raw = new Date(milliseconds);
         var day = raw.getDate();

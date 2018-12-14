@@ -12,7 +12,7 @@
 	<option value="prioridad">Prioridad</option>
 </select>
 
-<div class="col-xs-5" dnd-list="tarea" dnd-drop="moverLista(item,lista)" ng-repeat="(lista,tarea) in tareas">
+<div class="col-xs-5" ng-repeat="(lista,tarea) in tareas">
     <div class="table-responsive">
         <table class="table table-bordered">
             <thead>
@@ -29,7 +29,7 @@
 					<th scope="row"></th>
 				</tr>
 			</thead>
-            <tbody>
+            <tbody dnd-list="tarea" dnd-drop="moverLista(item,lista)">
                 <tr ng-repeat="t in tarea"
 					dnd-draggable="t"
 					dnd-effect-allowed="move">
@@ -41,6 +41,12 @@
                     <td>{{t.estimacion}}</td>
                     <td><i ng-click="borrar(t.id)" class="fas fa-trash-alt"></i></td>
                 </tr>
+				<tr class="dndPlaceholder">
+					<td colspan="7">Mover aqui</td>
+				</tr>
+				<tr ng-show="mostrarListaVacia(lista)">
+					<td colspan="7">Lista vacia</td>
+				</tr>
             </tbody>
         </table>
     </div>
