@@ -1,39 +1,31 @@
-<h1>{{titulo}}</h1>
+<h5 class="my-0 mr-md-auto font-weight-normal">{{titulo}}</h5>
+<nav class="my-2 my-md-0 mr-md-3">
+	<button  class="btn btn-primary" ng-click="nuevoModalLista()">Nueva Lista</button>
+	<button  class="btn btn-primary" ng-click="nuevoModalTarea()">Nueva Tarea</button>
+	<button class="btn btn-success" ng-click="relocate('/')">Volver</button>
+	<i ng-click="refresh()" class="fas fa-sync-alt"></i>
+	<select class="form-control" ng-model="sort" ng-change="sortBy()">
+		<option value="" selected disabled hidden>Ordenar por...</option>
+		<option value="fechacreacion">Fecha de creacion</option>
+		<option value="prioridad">Prioridad</option>
+	</select>
+</nav>
 
-<button  class="btn btn-primary" ng-click="nuevoModalLista()">Nueva Lista</button>
-<button  class="btn btn-primary" ng-click="nuevoModalTarea()">Nueva Tarea</button>
-<button class="btn btn-success" ng-click="relocate('/')">Volver</button>
-<i ng-click="refresh()" class="fas fa-sync-alt"></i>
-<select class="selectpicker" ng-model="sort" ng-change="sortBy()">
-	<option value="" selected disabled hidden>Ordenar por...</option>
-	<option value="fechacreacion">Fecha de creacion</option>
-	<option value="prioridad">Prioridad</option>
-</select>
-
-
-<!-- <ul ng-repeat="p in listas">
-{{p.id}} - <span ng-hide="p.id==instanciaM.id">{{p.nombre}} - {{p.sprint}} - </span> -->
-
-<select class="form-control" ng-model="sort" ng-change="sortBy()">
-	<option value="" selected disabled hidden>Ordenar por...</option>
-	<option value="fechacreacion">Fecha de creacion</option>
-	<option value="prioridad">Prioridad</option>
-</select>
-
-<div class="col-xs-5" ng-repeat="(lista,tarea) in tareas">
+<div class="col-xs-3" ng-repeat="(lista,tarea) in tareas">
     <div class="table-responsive">
         <table class="table table-bordered">
             <thead>
 				<tr>
 					<th scope="row" colspan="7">{{lista}}</th>
 				</tr>
-				<tr>
-					<th scope="row">ID</th>
+				<tr ng-show="!mostrarListaVacia(lista)">
+					<!--<th scope="row">ID</th>-->
 					<th scope="row">Tarea</th>
 					<th scope="row">Fecha de creacion</th>
-					<th scope="row">Fecha de modificacion</th>
+					<!--<th scope="row">Fecha de modificacion</th>-->
 					<th scope="row">Prioridad</th>
-					<th scope="row">Estimacion</th>
+					<!--<th scope="row">Estimacion</th>-->
+					<th scope="row"></th>
 					<th scope="row"></th>
 				</tr>
 			</thead>
@@ -41,19 +33,20 @@
                 <tr ng-repeat="t in tarea"
 					dnd-draggable="t"
 					dnd-effect-allowed="move">
-                    <td>{{t.id}}</td>
+                    <!--<td>{{t.id}}</td>-->
                     <td>{{t.nombre}}</td>
                     <td>{{changeDate(t.fechacreacion)}}</td>
-                    <td>{{changeDate(t.fechamodificacion)}}</td>
+                    <!--<td>{{changeDate(t.fechamodificacion)}}</td>-->
                     <td>{{t.prioridad}}</td>
-                    <td>{{t.estimacion}}</td>
+                    <!--<td>{{t.estimacion}}</td>-->
                     <td><i ng-click="borrar(t.id)" class="fas fa-trash-alt"></i></td>
+					<td><i ng-click="nuevoModalViewTarea(t)" class="fas fa-eye"></i></td>
                 </tr>
 				<tr class="dndPlaceholder">
-					<td colspan="7">Mover aqui</td>
+					<td colspan="5">Mover aqui</td>
 				</tr>
 				<tr ng-show="mostrarListaVacia(lista)">
-					<td colspan="7">Lista vacia</td>
+					<td colspan="5">Lista vacia</td>
 				</tr>
             </tbody>
         </table>
