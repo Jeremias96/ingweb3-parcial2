@@ -14,6 +14,6 @@ public interface IListaBusiness {
 	public List<Lista> getAll() throws BusinessException;
 
 	//add
-	public Lista add(Lista lista) throws BusinessException, InvalidListNameException, AlreadyUsedListNameException;
+	public Lista add(Lista lista) throws BusinessException, InvalidListNameException, AlreadyUsedListNameException, NullListException;
 
 }

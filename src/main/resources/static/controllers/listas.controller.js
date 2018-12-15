@@ -1,11 +1,11 @@
 angular.module('iw3')
-.controller('ListasController', function($scope,$http,$log,listasService,tareasService){//$uibModal
+.controller('ListasController', function($scope,$http,$log,$uibModal,listasService,tareasService){
 	$scope.titulo="Listas";
 	$scope.listas=[];	//Array
 	$scope.tareas={};	//Diccionario
 	$scope.instanciaL={};
     $scope.instanciaT={};
-	$scope.instanciaM=false;
+    $scope.instanciaM=false;
 	
 	//{"id":1,"descripcion":"Leche","precio":3.0,"enStock":true,"vencimiento":"1900-01-01T04:16:48.000+0000","rubro":{"idRubro":1,"descripcion":"Alimentos"}}]
 	
@@ -45,13 +45,14 @@ angular.module('iw3')
 	
 	$scope.agregarLista=function(){
         listasService.add($scope.instanciaL).then(
-				function(resp){
-					$scope.listas.push(resp.data);
-					$scope.tareas[resp.data.nombre] = [];
-					$scope.instanciaL={};
-				}, 
-				function(err){} 
-			);
+            function(resp){
+                $scope.listas.push(resp.data);
+                $scope.tareas[resp.data.nombre] = [];
+                $scope.instanciaL={};
+            },
+            function(err){
+            }
+        );
 	};
 
     $scope.agregarTarea=function(){
@@ -143,15 +144,15 @@ angular.module('iw3')
         return true;
     };*/
 
-	$scope.mostrarBotonGuardarLista=function(){
+	/*$scope.mostrarBotonGuardarLista=function(){
 		var i=$scope.instanciaL;
 		return i.nombre &&  i.nombre.length>0 && i.sprint && i.sprint.length>0;
-	};
+	};*/
 
-    $scope.mostrarBotonGuardarTarea=function(){
+    /*$scope.mostrarBotonGuardarTarea=function(){
         var i=$scope.instanciaT;
         return i.nombre &&  i.nombre.length > 0 && i.prioridad && i.prioridad.length > 0 && i.estimacion && i.estimacion > 0;
-    };
+    };*/
 
     $scope.mostrarListaVacia=function(lista){
         return $scope.tareas[lista].length <= 0;
@@ -165,7 +166,7 @@ angular.module('iw3')
         return day + "-" +(month + 1) + "-" + year;
     };
 
-    /*$scope.nuevoModal=function() {
+    $scope.nuevoModalLista=function() {
         var mi=$uibModal.open({
             animation : true,
             backdrop : 'static',
@@ -175,18 +176,46 @@ angular.module('iw3')
             controllerAs: '$ctrl',
             size : 'large',
             resolve : {
-                instancia : $scope.instancia
+                instancia : $scope.instanciaL
             }
         });
 
         mi.result.then(
             function(r){
-                $scope.instancia=r;
-                $scope.agregar();
-            },function(e){
-
+                $log.log($scope.instanciaL);
+                if (r != null) {
+                    $scope.instanciaL=r;
+                    $scope.agregarLista();
+                }
+            },
+            function(e){
             });
-    };*/
+    };
+
+    $scope.nuevoModalTarea=function() {
+        var mi=$uibModal.open({
+            animation : true,
+            backdrop : 'static',
+            keyboard : false,
+            templateUrl : 'views/addTareaModal.html',
+            controller : 'AddTareaModalController',
+            controllerAs: '$ctrl',
+            size : 'large',
+            resolve : {
+                instancia : $scope.instanciaT
+            }
+        });
+
+        mi.result.then(
+            function(r){
+                if (r != null) {
+                    $scope.instanciaT=r;
+                    $scope.agregarTarea();
+                }
+            },
+            function(e){
+            });
+    };
 
     /*$scope.$watch("tareas",function(newValue,oldValue) {
         $log.log("Watched!");
@@ -196,3 +225,37 @@ angular.module('iw3')
 
 	$scope.refresh();
 });
+
+angular.module('iw3')
+.controller('AddListaModalController', function($uibModalInstance,instancia){
+    var $ctrl=this;
+    $ctrl.instancia=angular.copy(instancia);
+    $ctrl.cancelar=function(){
+        $uibModalInstance.close();
+    };
+    $ctrl.ok=function(){
+        $uibModalInstance.close($ctrl.instancia);
+
+    };
+    $ctrl.mostrarBotonGuardar=function(){
+        var i = $ctrl.instancia;
+        return i.nombre &&  i.nombre.length > 0 && i.sprint && i.sprint.length > 0;
+    };
+});
+
+angular.module('iw3')
+    .controller('AddTareaModalController', function($uibModalInstance,instancia){
+        var $ctrl=this;
+        $ctrl.instancia=angular.copy(instancia);
+        $ctrl.cancelar=function(){
+            $uibModalInstance.close();
+        };
+        $ctrl.ok=function(){
+            $uibModalInstance.close($ctrl.instancia);
+
+        };
+        $ctrl.mostrarBotonGuardar=function(){
+            var i = $ctrl.instancia;
+            return i.nombre &&  i.nombre.length > 0 && i.prioridad && i.prioridad.length > 0 && i.estimacion && i.estimacion > 0;
+        };
+    });

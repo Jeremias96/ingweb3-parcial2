@@ -1,0 +1,23 @@
+<div class="modal-header">
+    <h3 class="modal-title">Nueva Tarea</h3>
+</div>
+<div class="modal-body">
+
+    <form>
+        <div class="form-group">
+            <label for="nombre">Nombre:</label>
+            <input id="nombre" class="form-control" type="text" ng-model="$ctrl.instancia.nombre"/>
+            <label for="sprint">Prioridad:</label>
+            <input id="sprint" class="form-control" type="text" ng-model="$ctrl.instancia.prioridad"/><br/>
+            <label for="sprint">Estimacion:</label>
+            <input id="sprint" class="form-control" type="number" min="1" max="100" ng-model="$ctrl.instancia.estimacion"/><br/>
+        </div>
+    </form>
+
+</div>
+<div class="modal-footer">
+    <button class="btn btn-danger" type="submit"
+            ng-click="$ctrl.cancelar()">Cancelar</button>
+    <button ng-disabled="!$ctrl.mostrarBotonGuardar()"  class="btn btn-success"
+            type="submit" ng-click="$ctrl.ok()">Aceptar</button>
+</div>

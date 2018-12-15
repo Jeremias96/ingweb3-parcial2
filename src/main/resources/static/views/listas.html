@@ -1,7 +1,15 @@
 <h1>{{titulo}}</h1>
 
+<button  class="btn btn-primary" ng-click="nuevoModalLista()">Nueva Lista</button>
+<button  class="btn btn-primary" ng-click="nuevoModalTarea()">Nueva Tarea</button>
 <button class="btn btn-success" ng-click="relocate('/')">Volver</button>
 <i ng-click="refresh()" class="fas fa-sync-alt"></i>
+<select class="selectpicker" ng-model="sort" ng-change="sortBy()">
+	<option value="" selected disabled hidden>Ordenar por...</option>
+	<option value="fechacreacion">Fecha de creacion</option>
+	<option value="prioridad">Prioridad</option>
+</select>
+
 
 <!-- <ul ng-repeat="p in listas">
 {{p.id}} - <span ng-hide="p.id==instanciaM.id">{{p.nombre}} - {{p.sprint}} - </span> -->
@@ -55,6 +63,7 @@
 <!--
 dnd-moved="tarea.splice($index, 1)"
 -->
+<!--
 <div class="clearfix"></div>
 
 <div class="panel panel-default">
@@ -72,8 +81,8 @@ dnd-moved="tarea.splice($index, 1)"
 	<div class="panel-heading">Nueva Tarea</div>
 	<div class="panel-body">
 		Nombre: <input type="text" ng-model="instanciaT.nombre"/><br/>
-		<!--Fecha de creacion: <input type="text" ng-model="instanciaT.fechacreacion"/><br/>-->
-		<!--Fecha de modificacion: <input type="text" ng-model="instanciaT.fechamodificacion"/><br/>-->
+		Fecha de creacion: <input type="text" ng-model="instanciaT.fechacreacion"/><br/>
+		Fecha de modificacion: <input type="text" ng-model="instanciaT.fechamodificacion"/><br/>
 		Prioridad: <input type="text" ng-model="instanciaT.prioridad"/><br/>
 		Estimacion: <input type="number" ng-model="instanciaT.estimacion"/><br/>
 	</div>
@@ -81,3 +90,4 @@ dnd-moved="tarea.splice($index, 1)"
 		<button ng-show="mostrarBotonGuardarTarea()" class="btn btn-primary" ng-click="agregarTarea()">Guardar</button>
 	</div>
 </div>
+-->

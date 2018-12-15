@@ -22,14 +22,18 @@ public class ListaBusiness implements IListaBusiness{
 	private ListaRepository listaDAO;
 
 	@Override
-	public Lista add(Lista lista) throws BusinessException, InvalidListNameException, AlreadyUsedListNameException {
+	public Lista add(Lista lista) throws BusinessException, InvalidListNameException, AlreadyUsedListNameException, NullListException {
         String nombre = lista.getNombre();
-        if(!(nombre.equalsIgnoreCase("backlog") ||
-                nombre.equalsIgnoreCase("todo") ||
-                nombre.equalsIgnoreCase("in progress") ||
-                nombre.equalsIgnoreCase("waiting") ||
-                nombre.equalsIgnoreCase("done"))) {
-            throw new InvalidListNameException();
+        try {
+            if(!(nombre.equalsIgnoreCase("backlog") ||
+                    nombre.equalsIgnoreCase("todo") ||
+                    nombre.equalsIgnoreCase("in progress") ||
+                    nombre.equalsIgnoreCase("waiting") ||
+                    nombre.equalsIgnoreCase("done"))) {
+                throw new InvalidListNameException();
+            }
+        } catch (NullPointerException e) {
+            throw new NullListException(e);
         }
 
         List<Lista> listaActual = getAll();

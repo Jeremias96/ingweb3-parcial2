@@ -2,6 +2,7 @@ package ar.edu.iua.ingweb3proyecto.web.services;
 
 import ar.edu.iua.ingweb3proyecto.model.exception.AlreadyUsedListNameException;
 import ar.edu.iua.ingweb3proyecto.model.exception.InvalidListNameException;
+import ar.edu.iua.ingweb3proyecto.model.exception.NullListException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,7 +46,10 @@ public class ListasRESTController {
 			responseHeaders.set("location", "/productos/" + lista.getId());
 			log.info("Lista ;" + l.getNombre() + "; guardada con ID " + l.getId());
 			return new ResponseEntity<Lista>(l, responseHeaders, HttpStatus.CREATED);
-		} catch (AlreadyUsedListNameException e) {
+		} catch (NullListException e) {
+			log.error("ListasRESTController.addLista() - NULL LIST EXCEPTION - HTTP Status: " + HttpStatus.NOT_ACCEPTABLE + " (NOT ACCEPTABLE)");
+			return new ResponseEntity<Lista>(HttpStatus.NOT_ACCEPTABLE);
+    	} catch (AlreadyUsedListNameException e) {
 			log.error("ListasRESTController.addLista() - ALREADY USED LIST NAME EXCEPTION - HTTP Status: " + HttpStatus.NOT_ACCEPTABLE + " (NOT ACCEPTABLE)");
 			return new ResponseEntity<Lista>(HttpStatus.NOT_ACCEPTABLE);
 		} catch (InvalidListNameException e) {
