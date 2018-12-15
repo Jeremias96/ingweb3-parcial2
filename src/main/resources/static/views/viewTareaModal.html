@@ -6,17 +6,17 @@
     <form>
         <div class="form-group">
             <label for="id">ID:</label>
-            <input id="id" class="form-control" type="text" disabled value={{$ctrl.instancia.id}}>
+            <input id="id" class="form-control" type="text" disabled value={{$ctrl.instancia.id}}><br/>
             <label for="nombre">Nombre:</label>
-            <input id="nombre" class="form-control" type="text" ng-model="$ctrl.instancia.nombre" disabled>
+            <input id="nombre" class="form-control" type="text" ng-model="$ctrl.instancia.nombre" disabled/><br/>
             <label for="fechacreacion">Fecha Creacion:</label>
-            <input id="fechacreacion" class="form-control" type="text" disabled value={{$ctrl.changeDate($ctrl.instancia.fechacreacion)}}>
+            <input id="fechacreacion" class="form-control" type="text" disabled value={{$ctrl.changeDate($ctrl.instancia.fechacreacion)}}><br/>
             <label for="fechamodificacion">Fecha Creacion:</label>
-            <input id="fechamodificacion" class="form-control" type="text" disabled value={{$ctrl.changeDate($ctrl.instancia.fechamodificacion)}}>
+            <input id="fechamodificacion" class="form-control" type="text" disabled value={{$ctrl.changeDate($ctrl.instancia.fechamodificacion)}}><br/>
             <label for="prioridad">Prioridad:</label>
-            <input id="prioridad" class="form-control" type="text" ng-model="$ctrl.instancia.prioridad" disabled>
+            <input id="prioridad" class="form-control" type="text" ng-model="$ctrl.instancia.prioridad" disabled/><br/>
             <label for="estimacion">Estimacion:</label>
-            <input id="estimacion" class="form-control" type="number" min="1" max="100" ng-model="$ctrl.instancia.estimacion" disabled>
+            <input id="estimacion" class="form-control" type="number" min="1" max="100" ng-model="$ctrl.instancia.estimacion" disabled/><br/>
             <label for="lista">Lista:</label>
             <input id="lista" class="form-control" type="text" disabled value={{$ctrl.instancia.lista.nombre}}>
         </div>
