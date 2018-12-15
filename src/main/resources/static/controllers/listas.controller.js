@@ -1,5 +1,5 @@
 angular.module('iw3')
-.controller('ListasController', function($scope,$http,$log,listasService,tareasService){
+.controller('ListasController', function($scope,$http,$log,$uibModal,listasService,tareasService){
 	$scope.titulo="Listas";
 	$scope.listas=[];	//Array
 	$scope.tareas={};	//Diccionario
@@ -47,7 +47,7 @@ angular.module('iw3')
         listasService.add($scope.instanciaL).then(
 				function(resp){
 					$scope.listas.push(resp.data);
-                    $scope.refresh();
+					$scope.tareas[resp.data.nombre] = [];
 					$scope.instanciaL={};
 				}, 
 				function(err){} 
@@ -57,26 +57,27 @@ angular.module('iw3')
     $scope.agregarTarea=function(){
         tareasService.add($scope.instanciaT).then(
             function(resp){
-                $scope.tareas[resp.data.lista.nombre] = resp.data;
-                //$scope.refresh();
+                $scope.tareas[resp.data.lista.nombre].push(resp.data);
                 $scope.instanciaT={};
             },
             function(err){
             }
         );
     };
+
 	$scope.borrar=function(id){
 		if(!confirm("Desea eliminar la tarea seleccionada?"))
 			return;
         tareasService.remove(id).then(
             function(resp){
-                if(resp.status==200) {
-                    $scope.refresh();
-                    /*$scope.tareas.forEach(function(o,i){
-                        if(o.id==id) {
-                            $scope.tareas.splice(i,1);
+                for (var key in $scope.tareas){
+                    for (var index in $scope.tareas[key]){
+                        if ($scope.tareas[key][index].id == id){
+                            $scope.tareas[key].splice(index, 1);
+                            break;
                         }
-                        });*/
+                        index++;
+                    }
                 }
             },
             function(err){
@@ -109,9 +110,15 @@ angular.module('iw3')
                 tareasService.update(tarea.id, body).then(   //ID de la tarea que quiero mover, tarea con id de lista a la que quiero mover
                     function (resp) {
                         if (resp.status==200) {
-                            //$scope.tareas[tarea.lista.nombre].splice(index, 1);
-                            //$scope.tareas[nombreLista].push(resp.data);
-                            //$scope.$applyAsync();
+                            var index = 0;
+                            for (t in $scope.tareas[tarea.lista.nombre]){
+                                if (t == tarea ){
+                                    break;
+                                }
+                                index++;
+                            }
+                            $scope.tareas[tarea.lista.nombre].splice(index, 1);
+                            $scope.tareas[nombreLista].push(resp.data);
                             $scope.refresh();
                         }
                     },
@@ -143,7 +150,7 @@ angular.module('iw3')
 
     $scope.mostrarBotonGuardarTarea=function(){
         var i=$scope.instanciaT;
-        return i.nombre &&  i.nombre.length>0 && i.fechacreacion && i.fechacreacion.length>0;
+        return i.nombre &&  i.nombre.length > 0 && i.prioridad && i.prioridad.length > 0 && i.estimacion && i.estimacion > 0;
     };
 
     $scope.mostrarListaVacia=function(lista){
@@ -156,7 +163,36 @@ angular.module('iw3')
         var month = raw.getMonth(); //Be careful! January is 0 not 1
         var year = raw.getFullYear();
         return day + "-" +(month + 1) + "-" + year;
-    }
-	
+    };
+
+    /*$scope.nuevoModal=function() {
+        var mi=$uibModal.open({
+            animation : true,
+            backdrop : 'static',
+            keyboard : false,
+            templateUrl : 'views/addListaModal.html',
+            controller : 'AddListaModalController',
+            controllerAs: '$ctrl',
+            size : 'large',
+            resolve : {
+                instancia : $scope.instancia
+            }
+        });
+
+        mi.result.then(
+            function(r){
+                $scope.instancia=r;
+                $scope.agregar();
+            },function(e){
+
+            });
+    };*/
+
+    /*$scope.$watch("tareas",function(newValue,oldValue) {
+        $log.log("Watched!");
+        $log.log(oldValue);
+        $log.log(newValue);
+    }, true);*/
+
 	$scope.refresh();
 });

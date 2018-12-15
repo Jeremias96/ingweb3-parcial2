@@ -54,6 +54,8 @@
 
 <!--
 dnd-moved="tarea.splice($index, 1)"
+-->
+<div class="clearfix"></div>
 
 <div class="panel panel-default">
 	<div class="panel-heading">Nueva Lista</div>
@@ -70,12 +72,12 @@ dnd-moved="tarea.splice($index, 1)"
 	<div class="panel-heading">Nueva Tarea</div>
 	<div class="panel-body">
 		Nombre: <input type="text" ng-model="instanciaT.nombre"/><br/>
-		Fecha de creacion: <input type="text" ng-model="instanciaT.fechacreacion"/><br/>
-		Fecha de modificacion: <input type="text" ng-model="instanciaT.fechamodificacion"/><br/>
+		<!--Fecha de creacion: <input type="text" ng-model="instanciaT.fechacreacion"/><br/>-->
+		<!--Fecha de modificacion: <input type="text" ng-model="instanciaT.fechamodificacion"/><br/>-->
 		Prioridad: <input type="text" ng-model="instanciaT.prioridad"/><br/>
 		Estimacion: <input type="number" ng-model="instanciaT.estimacion"/><br/>
 	</div>
 	<div class="panel-footer">
 		<button ng-show="mostrarBotonGuardarTarea()" class="btn btn-primary" ng-click="agregarTarea()">Guardar</button>
 	</div>
-</div> -->
+</div>
