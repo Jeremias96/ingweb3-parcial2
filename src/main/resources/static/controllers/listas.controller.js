@@ -1,5 +1,5 @@
 angular.module('iw3')
-.controller('ListasController', function($scope,$http,$log,$uibModal,listasService,tareasService){
+.controller('ListasController', function($scope,$http,$log,listasService,tareasService){//$uibModal
 	$scope.titulo="Listas";
 	$scope.listas=[];	//Array
 	$scope.tareas={};	//Diccionario
