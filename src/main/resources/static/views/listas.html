@@ -1,22 +1,22 @@
 <nav class="navbar navbar-default">
-		<ul class="nav navbar-nav">
-			<form class="navbar-form">
-				<span class="navbar-brand">{{titulo}}</span>
-				<button class="btn btn-info navbar-btn" ng-click="nuevoModalLista()">Nueva Lista</button>
-				<button class="btn btn-info navbar-btn" ng-click="nuevoModalTarea()">Nueva Tarea</button>
-			</form>
-		</ul>
-		<ul class="nav pull-right navbar-nav">
-			<form class="navbar-form">
-				<button class="btn btn-info navbar-btn" ng-click="refresh()"><i class="fas fa-sync-alt"></i> Refresh</button>
-				<button class="btn btn-info navbar-btn" ng-click="relocate()"><i class="fas fa-arrow-left"></i> Volver</button>
-					<select ng-model="sort" ng-change="sortBy()">
-						<option value="" selected disabled hidden>Ordenar por...</option>
-						<option value="fechacreacion">Fecha de creacion</option>
-						<option value="prioridad">Prioridad</option>
-					</select>
-			</form>
-		</ul>
+	<ul class="nav navbar-nav">
+		<form class="navbar-form">
+			<span class="navbar-brand"><i class="fas fa-list-ul"></i> {{titulo}}</span>
+			<button class="btn btn-info navbar-btn" ng-click="nuevoModalLista()">Nueva Lista</button>
+			<button class="btn btn-info navbar-btn" ng-click="nuevoModalTarea()">Nueva Tarea</button>
+		</form>
+	</ul>
+	<ul class="nav pull-right navbar-nav">
+		<form class="navbar-form">
+			<button class="btn btn-info navbar-btn" ng-click="relocate()"><i class="fas fa-arrow-left"></i> Volver</button>
+			<button class="btn btn-info navbar-btn" ng-click="refresh()"><i class="fas fa-sync-alt"></i> Refresh</button>
+				<select class="form-control-static" ng-model="sort" ng-change="sortBy()">
+					<option value="" selected disabled hidden>Ordenar por...</option>
+					<option value="fechacreacion">Fecha de creacion</option>
+					<option value="prioridad">Prioridad</option>
+				</select>
+		</form>
+	</ul>
 </nav>
 
 <div class="col-xs-2" ng-repeat="(lista,tarea) in tareas">

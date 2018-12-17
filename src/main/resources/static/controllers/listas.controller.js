@@ -7,8 +7,6 @@ angular.module('iw3')
     $scope.instanciaT={};
     $scope.sort;
 	
-	//{"id":1,"descripcion":"Leche","precio":3.0,"enStock":true,"vencimiento":"1900-01-01T04:16:48.000+0000","rubro":{"idRubro":1,"descripcion":"Alimentos"}}]
-	
 	$scope.refresh=function() {
         listasService.list().then(
 			function(resp){
