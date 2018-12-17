@@ -8,12 +8,5 @@ angular.module('iw3')
 		add : function(l){
 			return $http.post(URL_API_BASE+"listas",l);
 		}
-		/*remove : function(id){
-			return $http.delete(URL_API_BASE+"productos/"+id);
-		}*/
-		
-		
 	};
-	
-	
 });

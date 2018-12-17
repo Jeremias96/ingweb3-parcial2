@@ -18,6 +18,4 @@ angular.module('iw3')
             return $http.put(URL_API_BASE+"tareas/"+id,t);
         }
 	};
-	
-	
 });

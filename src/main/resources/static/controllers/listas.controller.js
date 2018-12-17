@@ -96,18 +96,16 @@ angular.module('iw3')
                 $log.log(body);
                 tareasService.update(tarea.id, body).then(   //ID de la tarea que quiero mover, tarea con id de lista a la que quiero mover
                     function (resp) {
-                        if (resp.status==200) {
-                            var index = 0;
-                            for (t in $scope.tareas[tarea.lista.nombre]){
-                                if (t == tarea ){
-                                    break;
-                                }
-                                index++;
+                        var index = 0;
+                        for (t in $scope.tareas[tarea.lista.nombre]){
+                            if (t == tarea ){
+                                break;
                             }
-                            $scope.tareas[tarea.lista.nombre].splice(index, 1);
-                            $scope.tareas[nombreLista].push(resp.data);
-                            $scope.refresh();
+                            index++;
                         }
+                        $scope.tareas[tarea.lista.nombre].splice(index, 1);
+                        $scope.tareas[nombreLista].push(resp.data);
+                        $scope.refresh();
                     },
                     function (err) {
                     }
