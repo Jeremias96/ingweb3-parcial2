@@ -132,35 +132,37 @@ angular.module('iw3')
     };
 
 	$scope.moverLista=function(tarea, nombreLista){
-        for (var lista in $scope.listas) {
-            if ($scope.listas[lista].nombre == nombreLista){
-                var body = JSON.stringify({"lista": $scope.listas[lista]});
-                tareasService.update(tarea.id, body).then(   //ID de la tarea que quiero mover, tarea con id de lista a la que quiero mover
-                    function (resp) {
-                        var index = 0;
-                        for (t in $scope.tareas[tarea.lista.nombre]){
-                            if (t == tarea ){
-                                break;
+	    if (tarea.lista.nombre != nombreLista){
+            for (var lista in $scope.listas) {
+                if ($scope.listas[lista].nombre == nombreLista){
+                    var body = JSON.stringify({"lista": $scope.listas[lista]});
+                    tareasService.update(tarea.id, body).then(   //ID de la tarea que quiero mover, tarea con id de lista a la que quiero mover
+                        function (resp) {
+                            var index = 0;
+                            for (t in $scope.tareas[tarea.lista.nombre]){
+                                if (t == tarea ){
+                                    break;
+                                }
+                                index++;
                             }
-                            index++;
+                            $scope.tareas[tarea.lista.nombre].splice(index, 1);
+                            $scope.tareas[nombreLista].push(resp.data);
+                            $scope.refresh();
+                        },
+                        function (err) {
+                            $log.log(err);
+                            swal({
+                                title: "Oops",
+                                text: "Operacion no permitida!",
+                                type:"info",
+                                timer: 1500,
+                                showConfirmButton: false
+                            });
                         }
-                        $scope.tareas[tarea.lista.nombre].splice(index, 1);
-                        $scope.tareas[nombreLista].push(resp.data);
-                        $scope.refresh();
-                    },
-                    function (err) {
-                        $log.log(err);
-                        swal({
-                            title: "Oops",
-                            text: "Operacion no permitida!",
-                            type:"info",
-                            timer: 1500,
-                            showConfirmButton: false
-                        });
-                    }
-                );
+                    );
+                }
             }
-        }
+	    }
     };
 
     /*$scope.test=function(tarea,lista) {
