@@ -24,7 +24,16 @@ angular.module('iw3')
                         $scope.tareas[resp.data[0].lista.nombre] = resp.data;
                     }
                 },
-                function (err) {}
+                function (err) {
+                    $log.log(err);
+                    swal({
+                        title: "Oops",
+                        text: "Ocurrio un error!",
+                        type:"error",
+                        timer: 1500,
+                        showConfirmButton: false
+                    });
+                }
             );
         }
 	};
@@ -37,6 +46,14 @@ angular.module('iw3')
                 $scope.instanciaL={};
             },
             function(err){
+                $log.log(err);
+                swal({
+                    title: "Oops",
+                    text: "Operacion no permitida!",
+                    type:"info",
+                    timer: 1500,
+                    showConfirmButton: false
+                });
             }
         );
 	};
@@ -48,6 +65,14 @@ angular.module('iw3')
                 $scope.instanciaT={};
             },
             function(err){
+                $log.log(err);
+                swal({
+                    title: "Oops",
+                    text: "Ocurrio un error!",
+                    type:"error",
+                    timer: 1500,
+                    showConfirmButton: false
+                });
             }
         );
     };
@@ -68,6 +93,14 @@ angular.module('iw3')
                 }
             },
             function(err){
+                $log.log(err);
+                swal({
+                    title: "Oops",
+                    text: "Ocurrio un error!",
+                    type:"error",
+                    timer: 1500,
+                    showConfirmButton: false
+                });
             }
         );
 	};
@@ -83,6 +116,14 @@ angular.module('iw3')
                         $scope.tareas[resp.data[0].lista.nombre] = resp.data;
                 },
                 function (err) {
+                    $log.log(err);
+                    swal({
+                        title: "Oops",
+                        text: "Ocurrio un error!",
+                        type:"error",
+                        timer: 1500,
+                        showConfirmButton: false
+                    });
                 }
             );
         }
@@ -93,7 +134,6 @@ angular.module('iw3')
         for (var lista in $scope.listas) {
             if ($scope.listas[lista].nombre == nombreLista){
                 var body = JSON.stringify({"lista": $scope.listas[lista]});
-                $log.log(body);
                 tareasService.update(tarea.id, body).then(   //ID de la tarea que quiero mover, tarea con id de lista a la que quiero mover
                     function (resp) {
                         var index = 0;
@@ -108,6 +148,14 @@ angular.module('iw3')
                         $scope.refresh();
                     },
                     function (err) {
+                        $log.log(err);
+                        swal({
+                            title: "Oops",
+                            text: "Operacion no permitida!",
+                            type:"info",
+                            timer: 1500,
+                            showConfirmButton: false
+                        });
                     }
                 );
             }
