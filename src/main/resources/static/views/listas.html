@@ -1,17 +1,21 @@
-<h5 class="my-0 mr-md-auto font-weight-normal">{{titulo}}</h5>
-<nav class="my-2 my-md-0 mr-md-3">
-	<button  class="btn btn-primary" ng-click="nuevoModalLista()">Nueva Lista</button>
-	<button  class="btn btn-primary" ng-click="nuevoModalTarea()">Nueva Tarea</button>
-	<button class="btn btn-success" ng-click="relocate('/')">Volver</button>
-	<i ng-click="refresh()" class="fas fa-sync-alt"></i>
-	<select class="form-control" ng-model="sort" ng-change="sortBy()">
-		<option value="" selected disabled hidden>Ordenar por...</option>
-		<option value="fechacreacion">Fecha de creacion</option>
-		<option value="prioridad">Prioridad</option>
-	</select>
+<nav class="navbar navbar-default" >
+		<span class="navbar-brand">{{titulo}}</span>
+		<ul class="nav navbar-nav align-items-center">
+			<button  class="btn btn-info navbar-btn" ng-click="nuevoModalLista()">Nueva Lista</button>
+			<button  class="btn btn-info navbar-btn" ng-click="nuevoModalTarea()">Nueva Tarea</button>
+		</ul>
+		<ul class="nav pull-right navbar-nav align-items-center">
+			<i class="fas fa-arrow-left align-self-center" ng-click="relocate('/')"></i>
+			<i class="fas fa-sync-alt fa-pulse" ng-click="refresh()"></i>
+			<select class="form-control" ng-model="sort" ng-change="sortBy()">
+				<option value="" selected disabled hidden>Ordenar por...</option>
+				<option value="fechacreacion">Fecha de creacion</option>
+				<option value="prioridad">Prioridad</option>
+			</select>
+		</ul>
 </nav>
 
-<div class="col-xs-3" ng-repeat="(lista,tarea) in tareas">
+<div class="col-xs-2" ng-repeat="(lista,tarea) in tareas">
     <div class="table-responsive">
         <table class="table table-bordered">
             <thead>
