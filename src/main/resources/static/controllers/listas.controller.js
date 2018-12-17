@@ -1,5 +1,5 @@
 angular.module('iw3')
-.controller('ListasController', function($scope,$http,$log,$uibModal,listasService,tareasService){
+.controller('ListasController', function($scope,$http,$log,$timeout,$uibModal,listasService,tareasService){
 	$scope.titulo="Listas";
 	$scope.listas=[];	//Array
 	$scope.tareas={};	//Diccionario
@@ -46,6 +46,7 @@ angular.module('iw3')
                 $scope.instanciaL={};
             },
             function(err){
+                $scope.instanciaL={};
                 $log.log(err);
                 swal({
                     title: "Oops",
@@ -65,6 +66,7 @@ angular.module('iw3')
                 $scope.instanciaT={};
             },
             function(err){
+                $scope.instanciaT={};
                 $log.log(err);
                 swal({
                     title: "Oops",
@@ -130,7 +132,6 @@ angular.module('iw3')
     };
 
 	$scope.moverLista=function(tarea, nombreLista){
-        $log.log("Mover lista");
         for (var lista in $scope.listas) {
             if ($scope.listas[lista].nombre == nombreLista){
                 var body = JSON.stringify({"lista": $scope.listas[lista]});
@@ -214,7 +215,6 @@ angular.module('iw3')
 
         mi.result.then(
             function(r){
-                $log.log($scope.instanciaL);
                 if (r != null) {
                     $scope.instanciaL=r;
                     $scope.agregarLista();
@@ -275,14 +275,34 @@ angular.module('iw3')
             });
     };
 
-    //Listo para agregar servicio actualizar cuando este listo
+    // Watch sobre tareas, se ejecuta cuando cambia el valor de tareas.
     /*$scope.$watch("tareas",function(newValue,oldValue) {
-        $log.log("Watched!");
+        $log.log("Watched");
         $log.log(oldValue);
         $log.log(newValue);
     }, true);*/
 
-	$scope.refresh();
+    // On event content loaded
+    /*$scope.$on('$viewContentLoaded', function(){
+        $log.log('Loaded');
+        $scope.$apply(function () {
+            $scope.refresh();
+        });
+    });*/
+
+    // time out, se ejecuta cuando terminaron todos los digest
+    // los apply ejecutan un digest
+    // un digest ejecuta todos los watch
+    // nunca se ejecutan mas de un digest al mismo tiempo
+    // al pulsar un boton, agular envuelve la funcion en un apply, y sucede lo anterior
+    /*$timeout(function(){
+        //$log.log('Timeout');
+        $scope.$apply(function () {
+            $scope.refresh();
+        });
+    });*/
+
+    $scope.refresh();
 });
 
 angular.module('iw3')
