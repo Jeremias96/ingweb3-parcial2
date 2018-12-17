@@ -2,7 +2,7 @@
 	"name": "iw3",
 	"version": "0.0.1-SNAPSHOT",
 	"dependencies" : {
-        "bootstrap": "~3.3.0",
+        "bootstrap": "~3.3.7",
         "bootstrap-select": "~1.7.5",
         "jquery": "~2.2.0",
         "jquery-ui": "~1.12.0",
