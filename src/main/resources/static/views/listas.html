@@ -18,59 +18,62 @@
 		</form>
 	</ul>
 </nav>
-
-<div class="col-xs-2" ng-repeat="(lista,tarea) in tareas">
-    <div class="table-responsive">
-        <table class="table table-bordered">
-            <thead>
-				<tr>
-					<th scope="row" colspan="5">{{lista}}</th>
-				</tr>
-				<tr ng-show="!mostrarListaVacia(lista)">
-					<!--<th scope="row">ID</th>-->
-					<th scope="row">Tarea</th>
-					<th scope="row">Fecha de creacion</th>
-					<!--<th scope="row">Fecha de modificacion</th>-->
-					<th scope="row">Prioridad</th>
-					<!--<th scope="row">Estimacion</th>-->
-					<th scope="row"></th>
-					<th scope="row"></th>
-				</tr>
-			</thead>
-            <tbody dnd-list="tarea" dnd-drop="moverLista(item,lista)">
-                <tr ng-repeat="t in tarea"
-					dnd-draggable="t"
-					dnd-effect-allowed="move">
-                    <!--<td>{{t.id}}</td>-->
-                    <td>{{t.nombre}}</td>
-                    <td>{{changeDate(t.fechacreacion)}}</td>
-                    <!--<td>{{changeDate(t.fechamodificacion)}}</td>-->
-                    <td>{{t.prioridad}}</td>
-                    <!--<td>{{t.estimacion}}</td>-->
-                    <td>
-						<i class="fas fa-trash-alt"
-						   mwl-confirm
-						   title="¿Desea borrar la tarea?"
-						   message=""
-						   confirm-text="<i class='fas fa-check'></i> Si"
-						   cancel-text="<i class='fas fa-times'></i> No"
-						   placement="top"
-						   on-confirm="borrar(t.id)"
-						   confirm-button-type="success"
-						   cancel-button-type="danger">
-						</i>
-					</td>
-					<td><i ng-click="nuevoModalViewTarea(t)" class="fas fa-eye"></i></td>
-                </tr>
-				<tr class="dndPlaceholder">
-					<td colspan="5">Mover aqui</td>
-				</tr>
-				<tr ng-show="mostrarListaVacia(lista)">
-					<td colspan="5">Lista vacia</td>
-				</tr>
-            </tbody>
-        </table>
-    </div>
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-xs-2" ng-repeat="(lista,tarea) in tareas">
+			<div class="table-responsive">
+				<table class="table table-bordered">
+					<thead>
+						<tr>
+							<th scope="row" colspan="5">{{lista}}</th>
+						</tr>
+						<tr ng-show="!mostrarListaVacia(lista)">
+							<!--<th scope="row">ID</th>-->
+							<th scope="row">Tarea</th>
+							<th scope="row">Fecha de creacion</th>
+							<!--<th scope="row">Fecha de modificacion</th>-->
+							<th scope="row">Prioridad</th>
+							<!--<th scope="row">Estimacion</th>-->
+							<th scope="row"></th>
+							<th scope="row"></th>
+						</tr>
+					</thead>
+					<tbody dnd-list="tarea" dnd-drop="moverLista(item,lista)">
+						<tr ng-repeat="t in tarea"
+							dnd-draggable="t"
+							dnd-effect-allowed="move">
+							<!--<td>{{t.id}}</td>-->
+							<td>{{t.nombre}}</td>
+							<td>{{changeDate(t.fechacreacion)}}</td>
+							<!--<td>{{changeDate(t.fechamodificacion)}}</td>-->
+							<td>{{t.prioridad}}</td>
+							<!--<td>{{t.estimacion}}</td>-->
+							<td><i ng-click="nuevoModalViewTarea(t)" class="fas fa-eye"></i></td>
+							<td>
+								<i class="fas fa-trash-alt"
+								   mwl-confirm
+								   title="¿Desea borrar la tarea?"
+								   message=""
+								   confirm-text="<i class='fas fa-check'></i> Si"
+								   cancel-text="<i class='fas fa-times'></i> No"
+								   placement="top"
+								   on-confirm="borrar(t.id)"
+								   confirm-button-type="success"
+								   cancel-button-type="danger">
+								</i>
+							</td>
+						</tr>
+						<tr class="dndPlaceholder">
+							<td colspan="5">Mover aqui</td>
+						</tr>
+						<tr ng-show="mostrarListaVacia(lista)">
+							<td colspan="5">Lista vacia</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
 </div>
 
 <!--

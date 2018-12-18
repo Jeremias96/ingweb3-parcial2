@@ -211,7 +211,7 @@ angular.module('iw3')
         var mi=$uibModal.open({
             animation : true,
             backdrop : 'static',
-            keyboard : false,
+            keyboard : true,
             templateUrl : 'views/addListaModal.html',
             controller : 'AddListaModalController',
             controllerAs: '$ctrl',
@@ -236,7 +236,7 @@ angular.module('iw3')
         var mi=$uibModal.open({
             animation : true,
             backdrop : 'static',
-            keyboard : false,
+            keyboard : true,
             templateUrl : 'views/addTareaModal.html',
             controller : 'AddTareaModalController',
             controllerAs: '$ctrl',
@@ -261,7 +261,7 @@ angular.module('iw3')
         var mi=$uibModal.open({
             animation : true,
             backdrop : 'static',
-            keyboard : false,
+            keyboard : true,
             templateUrl : 'views/viewTareaModal.html',
             controller : 'ViewTareaModalController',
             controllerAs: '$ctrl',
