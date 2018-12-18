@@ -6,6 +6,7 @@ angular.module('iw3')
 	$scope.instanciaL={};
     $scope.instanciaT={};
     $scope.sort;
+    $scope.prioridades=['Alta','Media','Baja'];
 	
 	$scope.refresh=function() {
         listasService.list().then(
@@ -351,6 +352,7 @@ angular.module('iw3')
 angular.module('iw3')
     .controller('ViewTareaModalController', function($uibModalInstance,instancia){
         var $ctrl=this;
+        $ctrl.prioridades=['Alta','Media','Baja'];
         $ctrl.instancia=angular.copy(instancia);
         $ctrl.ok=function(){
             $uibModalInstance.close(/*$ctrl.instancia*/);
@@ -363,4 +365,5 @@ angular.module('iw3')
             var year = raw.getFullYear();
             return day + "-" +(month + 1) + "-" + year;
         };
+
     });

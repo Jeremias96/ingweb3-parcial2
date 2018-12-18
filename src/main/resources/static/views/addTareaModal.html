@@ -8,7 +8,11 @@
             <label for="nombre">Nombre:</label>
             <input id="nombre" class="form-control" type="text" ng-model="$ctrl.instancia.nombre"/><br/>
             <label for="sprint">Prioridad:</label>
-            <input id="sprint" class="form-control" type="text" ng-model="$ctrl.instancia.prioridad"/><br/>
+            <select class="form-control" ng-model="$ctrl.instancia.prioridad">
+                <option value="0">Alta</option>
+                <option value="1">Media</option>
+                <option value="2">Baja</option>
+            </select><br/>
             <label for="sprint">Estimacion:</label>
             <input id="sprint" class="form-control" type="number" min="1" max="100" ng-model="$ctrl.instancia.estimacion"/>
         </div>
@@ -21,3 +25,5 @@
     <button ng-disabled="!$ctrl.mostrarBotonGuardar()"  class="btn btn-success"
             type="submit" ng-click="$ctrl.ok()">Aceptar</button>
 </div>
+
+<!--input id="sprint" class="form-control" type="text" ng-model="$ctrl.instancia.prioridad"/><br/-->
