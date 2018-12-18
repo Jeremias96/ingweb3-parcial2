@@ -47,7 +47,19 @@
                     <!--<td>{{changeDate(t.fechamodificacion)}}</td>-->
                     <td>{{t.prioridad}}</td>
                     <!--<td>{{t.estimacion}}</td>-->
-                    <td><i ng-click="borrar(t.id)" class="fas fa-trash-alt"></i></td>
+                    <td>
+						<i class="fas fa-trash-alt"
+						   mwl-confirm
+						   title="¿Desea borrar la tarea?"
+						   message=""
+						   confirm-text="<i class='fas fa-check'></i> Si"
+						   cancel-text="<i class='fas fa-times'></i> No"
+						   placement="top"
+						   on-confirm="borrar(t.id)"
+						   confirm-button-type="success"
+						   cancel-button-type="danger">
+						</i>
+					</td>
 					<td><i ng-click="nuevoModalViewTarea(t)" class="fas fa-eye"></i></td>
                 </tr>
 				<tr class="dndPlaceholder">

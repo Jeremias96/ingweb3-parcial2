@@ -30,7 +30,8 @@ angular.module('iw3')
                         title: "Oops",
                         text: "Ocurrio un error!",
                         type:"error",
-                        timer: 1500,
+                        timer: 1000,
+                        allowEscapeKey: true,
                         showConfirmButton: false
                     });
                 }
@@ -52,7 +53,8 @@ angular.module('iw3')
                     title: "Oops",
                     text: "Operacion no permitida!",
                     type:"info",
-                    timer: 1500,
+                    timer: 1000,
+                    allowEscapeKey: true,
                     showConfirmButton: false
                 });
             }
@@ -72,7 +74,8 @@ angular.module('iw3')
                     title: "Oops",
                     text: "Ocurrio un error!",
                     type:"error",
-                    timer: 1500,
+                    timer: 1000,
+                    allowEscapeKey: true,
                     showConfirmButton: false
                 });
             }
@@ -80,8 +83,8 @@ angular.module('iw3')
     };
 
 	$scope.borrar=function(id){
-		if(!confirm("Desea eliminar la tarea seleccionada?"))
-			return;
+		/*if(!confirm("Desea eliminar la tarea seleccionada?"))
+			return;*/
         tareasService.remove(id).then(
             function(resp){
                 for (var key in $scope.tareas){
@@ -100,7 +103,8 @@ angular.module('iw3')
                     title: "Oops",
                     text: "Ocurrio un error!",
                     type:"error",
-                    timer: 1500,
+                    timer: 1000,
+                    allowEscapeKey: true,
                     showConfirmButton: false
                 });
             }
@@ -123,7 +127,8 @@ angular.module('iw3')
                         title: "Oops",
                         text: "Ocurrio un error!",
                         type:"error",
-                        timer: 1500,
+                        timer: 1000,
+                        allowEscapeKey: true,
                         showConfirmButton: false
                     });
                 }
@@ -155,7 +160,8 @@ angular.module('iw3')
                                 title: "Oops",
                                 text: "Operacion no permitida!",
                                 type:"info",
-                                timer: 1500,
+                                timer: 1000,
+                                allowEscapeKey: true,
                                 showConfirmButton: false
                             });
                         }

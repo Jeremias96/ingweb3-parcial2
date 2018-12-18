@@ -1,5 +1,5 @@
 
-var app=angular.module('iw3',['ngRoute','dndLists','ui.bootstrap']);
+var app=angular.module('iw3',['ngRoute','dndLists','ui.bootstrap','mwl.confirm']);
 
 app.constant('URL_BASE','/');
 app.constant('URL_API_BASE','/api/v1/');
