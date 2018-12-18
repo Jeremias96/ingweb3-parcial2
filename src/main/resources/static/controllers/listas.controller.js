@@ -11,32 +11,36 @@ angular.module('iw3')
         listasService.list().then(
 			function(resp){
 				$scope.listas=resp.data;
+                for (var lista in $scope.listas) {
+                    var key = $scope.listas[lista];
+                    $scope.tareas[key.nombre] = [];
+
+                    tareasService.getByList(key.nombre).then(
+                        function (resp) {
+                            if (resp.data[0]) {
+                                $scope.tareas[resp.data[0].lista.nombre] = resp.data;
+                                /*$scope.tareas[resp.data[0].lista.nombre] = [];
+                                for (var t in resp.data) {
+                                    $scope.tareas[resp.data[0].lista.nombre].push(resp.data[t]);
+                                }*/
+                            }
+                        },
+                        function (err) {
+                            $log.log(err);
+                            swal({
+                                title: "Oops",
+                                text: "Ocurrio un error!",
+                                type:"error",
+                                timer: 1000,
+                                allowEscapeKey: true,
+                                showConfirmButton: false
+                            });
+                        }
+                    );
+                }
 			},
 			function(err){}
 		);
-        for (var lista in $scope.listas) {
-            var key = $scope.listas[lista];
-            $scope.tareas[key.nombre] = [];
-
-            tareasService.getByList(key.nombre).then(
-                function (resp) {
-                    if (resp.data[0]) {
-                        $scope.tareas[resp.data[0].lista.nombre] = resp.data;
-                    }
-                },
-                function (err) {
-                    $log.log(err);
-                    swal({
-                        title: "Oops",
-                        text: "Ocurrio un error!",
-                        type:"error",
-                        timer: 1000,
-                        allowEscapeKey: true,
-                        showConfirmButton: false
-                    });
-                }
-            );
-        }
 	};
 	
 	$scope.agregarLista=function(){
