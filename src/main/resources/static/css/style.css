@@ -1,0 +1,6 @@
+.trunc{
+    max-width:65px; /* Customise it accordingly */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

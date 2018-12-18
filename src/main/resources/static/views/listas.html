@@ -18,8 +18,10 @@
 		</form>
 	</ul>
 </nav>
+
 <div class="container-fluid">
 	<div class="row">
+		<div class="col-xs-1"></div>
 		<div class="col-xs-2" ng-repeat="(lista,tarea) in tareas">
 			<div class="table-responsive">
 				<table class="table table-bordered">
@@ -32,7 +34,7 @@
 							<th scope="row">Tarea</th>
 							<th scope="row">Fecha de creacion</th>
 							<!--<th scope="row">Fecha de modificacion</th>-->
-							<th scope="row">Prioridad</th>
+							<th scope="row">Prior.</th>
 							<!--<th scope="row">Estimacion</th>-->
 							<th scope="row"></th>
 							<th scope="row"></th>
@@ -43,7 +45,7 @@
 							dnd-draggable="t"
 							dnd-effect-allowed="move">
 							<!--<td>{{t.id}}</td>-->
-							<td>{{t.nombre}}</td>
+							<td class="trunc">{{t.nombre}}</td>
 							<td>{{changeDate(t.fechacreacion)}}</td>
 							<!--<td>{{changeDate(t.fechamodificacion)}}</td>-->
 							<td>{{t.prioridad}}</td>
