@@ -1,6 +1,6 @@
 angular.module('iw3')
 .controller('ListasController', function($scope,$http,$log,$timeout,$uibModal,listasService,tareasService){
-	$scope.titulo="Listas";
+	$scope.titulo="Tablero";
 	$scope.listas=[];	//Array
 	$scope.tareas={};	//Diccionario
 	$scope.instanciaL={};
@@ -28,8 +28,8 @@ angular.module('iw3')
                         function (err) {
                             $log.log(err);
                             swal({
-                                title: "Oops",
-                                text: "Ocurrio un error!",
+                                title: "¡Oops!",
+                                text: "Ocurrio un error",
                                 type:"error",
                                 timer: 1000,
                                 allowEscapeKey: true,
@@ -54,8 +54,8 @@ angular.module('iw3')
                 $scope.instanciaL={};
                 $log.log(err);
                 swal({
-                    title: "Oops",
-                    text: "Operacion no permitida!",
+                    title: "¡Oops!",
+                    text: "Operacion no permitida",
                     type:"info",
                     timer: 1000,
                     allowEscapeKey: true,
@@ -75,8 +75,8 @@ angular.module('iw3')
                 $scope.instanciaT={};
                 $log.log(err);
                 swal({
-                    title: "Oops",
-                    text: "Ocurrio un error!",
+                    title: "¡Oops!",
+                    text: "Ocurrio un error",
                     type:"error",
                     timer: 1000,
                     allowEscapeKey: true,
@@ -97,15 +97,14 @@ angular.module('iw3')
                             $scope.tareas[key].splice(index, 1);
                             break;
                         }
-                        index++;
                     }
                 }
             },
             function(err){
                 $log.log(err);
                 swal({
-                    title: "Oops",
-                    text: "Ocurrio un error!",
+                    title: "¡Oops!",
+                    text: "Ocurrio un error",
                     type:"error",
                     timer: 1000,
                     allowEscapeKey: true,
@@ -128,8 +127,8 @@ angular.module('iw3')
                 function (err) {
                     $log.log(err);
                     swal({
-                        title: "Oops",
-                        text: "Ocurrio un error!",
+                        title: "¡Oops!",
+                        text: "Ocurrio un error",
                         type:"error",
                         timer: 1000,
                         allowEscapeKey: true,
@@ -159,8 +158,8 @@ angular.module('iw3')
                         function (err) {
                             $log.log(err);
                             swal({
-                                title: "Oops",
-                                text: "Operacion no permitida!",
+                                title: "¡Oops!",
+                                text: "Operacion no permitida",
                                 type:"info",
                                 timer: 1000,
                                 allowEscapeKey: true,
@@ -353,20 +352,15 @@ angular.module('iw3')
     .controller('ViewTareaModalController', function($uibModalInstance,instancia){
         var $ctrl=this;
         $ctrl.instancia=angular.copy(instancia);
-        /*$ctrl.cancelar=function(){
-            $uibModalInstance.close();
-        };*/
         $ctrl.ok=function(){
             $uibModalInstance.close(/*$ctrl.instancia*/);
 
         };
-        $ctrl.mostrarBotonGuardar=function(){
-            var i = $ctrl.instancia;
-            //return i.nombre &&  i.nombre.length > 0 && i.prioridad && i.prioridad.length > 0 && i.estimacion && i.estimacion > 0;
-            return true;
-        };
         $ctrl.changeDate=function(milliseconds){
             var raw = new Date(milliseconds);
-            return raw;//.toDateString();
+            var day = raw.getDate();
+            var month = raw.getMonth(); //Be careful! January is 0 not 1
+            var year = raw.getFullYear();
+            return day + "-" +(month + 1) + "-" + year;
         };
     });

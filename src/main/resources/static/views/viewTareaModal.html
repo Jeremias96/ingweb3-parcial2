@@ -1,31 +1,39 @@
 <div class="modal-header">
     <h3 class="modal-title">Tarea</h3>
 </div>
-<div class="modal-body">
-
-    <form>
-        <div class="form-group">
-            <label for="id">ID:</label>
-            <input id="id" class="form-control" type="text" disabled value={{$ctrl.instancia.id}}><br/>
-            <label for="nombre">Nombre:</label>
-            <input id="nombre" class="form-control" type="text" ng-model="$ctrl.instancia.nombre" disabled/><br/>
-            <label for="fechacreacion">Fecha Creacion:</label>
-            <input id="fechacreacion" class="form-control" type="text" disabled value={{$ctrl.changeDate($ctrl.instancia.fechacreacion)}}><br/>
-            <label for="fechamodificacion">Fecha Modificacion:</label>
-            <input id="fechamodificacion" class="form-control" type="text" disabled value={{$ctrl.changeDate($ctrl.instancia.fechamodificacion)}}><br/>
-            <label for="prioridad">Prioridad:</label>
-            <input id="prioridad" class="form-control" type="text" ng-model="$ctrl.instancia.prioridad" disabled/><br/>
-            <label for="estimacion">Estimacion:</label>
-            <input id="estimacion" class="form-control" type="number" min="1" max="100" ng-model="$ctrl.instancia.estimacion" disabled/><br/>
-            <label for="lista">Lista:</label>
-            <input id="lista" class="form-control" type="text" disabled value={{$ctrl.instancia.lista.nombre}}>
-        </div>
-    </form>
-
+<div>
+    <table class="table table-striped">
+        <tr>
+            <th>ID</th>
+            <td>{{$ctrl.instancia.id}}</td>
+        </tr>
+        <tr>
+            <th>Nombre</th>
+            <td>{{$ctrl.instancia.nombre}}</td>
+        </tr>
+        <tr>
+            <th>Fecha Creacion</th>
+            <td>{{$ctrl.changeDate($ctrl.instancia.fechacreacion)}}</td>
+        </tr>
+        <tr>
+            <th>Fecha Modificacion</th>
+            <td>{{$ctrl.changeDate($ctrl.instancia.fechamodificacion)}}</td>
+        </tr>
+        <tr>
+            <th>Prioridad</th>
+            <td>{{$ctrl.instancia.prioridad}}</td>
+        </tr>
+        <tr>
+            <th>Estimacion</th>
+            <td>{{$ctrl.instancia.estimacion}}</td>
+        </tr>
+        <tr>
+            <th>Lista</th>
+            <td>{{$ctrl.instancia.lista.nombre}}</td>
+        </tr>
+    </table>
 </div>
 <div class="modal-footer">
-    <!--<button class="btn btn-danger" type="submit"
-            ng-click="$ctrl.cancelar()">Cancelar</button>-->
-    <button ng-disabled="!$ctrl.mostrarBotonGuardar()"  class="btn btn-success"
+    <button class="btn btn-success"
             type="submit" ng-click="$ctrl.ok()">Aceptar</button>
 </div>

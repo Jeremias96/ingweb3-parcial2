@@ -4,3 +4,9 @@
     overflow: hidden;
     text-overflow: ellipsis;
 }
+.dndDragging{
+    background-color: silver;
+}
+.dndPlaceholder{
+    background-color: silver;
+}
