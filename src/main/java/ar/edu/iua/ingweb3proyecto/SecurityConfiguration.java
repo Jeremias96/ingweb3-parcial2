@@ -3,6 +3,7 @@ package ar.edu.iua.ingweb3proyecto;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -27,6 +28,7 @@ import ar.edu.iua.ingweb3proyecto.web.services.Constantes;
 		jsr250Enabled = true) 
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
+	@Qualifier("persistenceUserDetailService")
 	@Autowired
 	private UserDetailsService userDetailService;
 
