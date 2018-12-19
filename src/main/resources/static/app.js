@@ -1,16 +1,9 @@
 
-/*var app = angular.module('iw3',['ngRoute','dndLists',
+var app = angular.module('iw3',['ngRoute','dndLists',
 	'mwl.confirm', 'ngAnimate', 'ngTouch', 'ui.bootstrap',
     'ngSanitize', 'angularUtils.directives.dirPagination',
     'angucomplete-alt', 'ngLoadingSpinner', 'ui.select',
-    'adaptv.adaptStrap', 'ui-notification', 'ngStomp', 'uiSwitch' ]);*/
-
-var app = angular.module('iw3',
-    [ 'ngRoute', 'ngSanitize', 'ngAnimate', 'ngTouch', 'ui.bootstrap',
-        'ngSanitize', 'angularUtils.directives.dirPagination',
-        'angucomplete-alt', 'ngLoadingSpinner', 'ui.select',
-        'adaptv.adaptStrap', 'ngDragDrop', 'ui-notification',
-        'chart.js', 'ngStomp', 'uiSwitch' ]);
+    'adaptv.adaptStrap', 'ui-notification', 'ngStomp', 'uiSwitch' ]);
 
 app.constant('URL_BASE','/');
 app.constant('URL_API_BASE','/api/v1/');
