@@ -131,8 +131,30 @@ public class TareaBusiness implements ITareaBusiness{
 	}
 
 	@Override
-	public Tarea update(Tarea tarea) throws BusinessException, NotFoundException, InvalidEstimationValueException, NullListException, InvalidDestinationListException {
+	public Tarea updateAdmin(Tarea tarea) throws BusinessException, NotFoundException, InvalidEstimationValueException, NullListException, InvalidDestinationListException {
+		HashMap<String, String[]> origenDestino = new HashMap<String, String[]>();
+		origenDestino.put("backlog", new String[]{"todo"});
+		origenDestino.put("todo", new String[]{"in progress", "waiting", "done"});
+		origenDestino.put("in progress", new String[]{"waiting", "todo", "done"});
+		origenDestino.put("waiting", new String[]{"in progress", "todo", "done"});
+		origenDestino.put("done", new String[]{});
 
+		return update(tarea, origenDestino);
+	}
+
+	@Override
+	public Tarea updateUser(Tarea tarea) throws BusinessException, NotFoundException, InvalidEstimationValueException, NullListException, InvalidDestinationListException {
+		HashMap<String, String[]> origenDestino = new HashMap<String, String[]>();
+		origenDestino.put("backlog", new String[]{});
+		origenDestino.put("todo", new String[]{"in progress", "waiting", "done"});
+		origenDestino.put("in progress", new String[]{});
+		origenDestino.put("waiting", new String[]{});
+		origenDestino.put("done", new String[]{});
+
+		return update(tarea, origenDestino);
+	}
+
+	public Tarea update(Tarea tarea, HashMap<String, String[]> origenDestino) throws BusinessException, NotFoundException, InvalidEstimationValueException, NullListException, InvalidDestinationListException {
         Tarea tareaOrigen = null;
         String listaDestino = null;
 
@@ -157,13 +179,6 @@ public class TareaBusiness implements ITareaBusiness{
 		}
 
 		String listaOrigen = tareaOrigen.getLista().getNombre().toLowerCase();
-
-        HashMap<String, String[]> origenDestino = new HashMap<String, String[]>();
-        origenDestino.put("backlog", new String[]{"todo"});
-        origenDestino.put("todo", new String[]{"in progress", "waiting", "done"});
-        origenDestino.put("in progress", new String[]{"waiting", "todo", "done"});
-        origenDestino.put("waiting", new String[]{"in progress", "todo", "done"});
-        origenDestino.put("done", new String[]{});
 
         if (!Arrays.asList(origenDestino.get(listaOrigen)).contains(listaDestino)){
             throw new InvalidDestinationListException();

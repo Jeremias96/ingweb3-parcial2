@@ -10,11 +10,14 @@
 		<form class="navbar-form">
 			<button class="btn btn-info navbar-btn" ng-click="relocate('/')"><i class="fas fa-arrow-left"></i> Volver</button>
 			<button class="btn btn-info navbar-btn" ng-click="refresh()"><i class="fas fa-sync-alt"></i> Refresh</button>
-				<select class="form-control btn-info" ng-model="sort" ng-change="sortBy()">
-					<option value="" selected disabled hidden>Ordenar por...</option>
-					<option value="fechacreacion">Fecha de creacion</option>
-					<option value="prioridad">Prioridad</option>
-				</select>
+			<select class="form-control btn-info" ng-model="sort" ng-change="sortBy()">
+				<option value="" selected disabled hidden>Ordenar por...</option>
+				<option value="fechacreacion">Fecha de creacion</option>
+				<option value="prioridad">Prioridad</option>
+			</select>
+			<span ng-show="autenticado"><strong><i class="fas fa-user-ninja"></i>{{user.name}}</strong>
+				<span class="pointer" ng-click="logout(true);"> ( Logout )</span>
+			</span>
 		</form>
 	</ul>
 </nav>

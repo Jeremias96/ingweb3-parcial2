@@ -17,6 +17,8 @@ import ar.edu.iua.ingweb3proyecto.business.ITareaBusiness;
 import ar.edu.iua.ingweb3proyecto.business.exception.BusinessException;
 import ar.edu.iua.ingweb3proyecto.model.Tarea;
 
+import javax.servlet.http.HttpServletRequest;
+
 //import javax.persistence.EntityNotFoundException;
 
 @RestController
@@ -101,10 +103,15 @@ public class TareasRESTController {
     }
 
     @PutMapping(value = {"/{id}"})
-    public ResponseEntity<Tarea> update(@PathVariable("id") int id, @RequestBody Tarea tarea ) {
+    public ResponseEntity<Tarea> update(@PathVariable("id") int id, @RequestBody Tarea tarea, HttpServletRequest request) {
         try {
             tarea.setId(id);
-            Tarea t = tareaBusiness.update(tarea);
+            Tarea t = new Tarea();
+            if (request.isUserInRole("ROLE_ADMIN")) {
+                t = tareaBusiness.updateAdmin(tarea);
+            } else if (request.isUserInRole("ROLE_USER")) {
+                t = tareaBusiness.updateUser(tarea);
+            }
             HttpHeaders responseHeaders = new HttpHeaders();
             responseHeaders.set("location", "/tareas" + t.getId());
             log.info("Tarea '" + t.getNombre() + "' con ID "  + t.getId() + " movida a la lista '" + t.getLista().getNombre() + "'");

@@ -12,7 +12,7 @@ app.constant('URL_WS', '/api/v1/ws');
 app.run(['$location','$log','$rootScope','$uibModal', 'coreService', '$stomp',
 	function($location,$log,$rootScope,$uibModal,coreService,$stomp){
 		$log.log('Iniciando');
-        $rootScope.stomp=$stomp;
+        //$rootScope.stomp=$stomp;
 
         $rootScope.cleanLoginData = function() {
             $rootScope.autenticado = false;

@@ -30,5 +30,6 @@ public interface ITareaBusiness {
 	public void delete(Tarea tarea) throws BusinessException, NotFoundException;
 
 	//update
-	public Tarea update(Tarea tarea) throws BusinessException, NotFoundException, InvalidEstimationValueException, NullListException, InvalidDestinationListException;
+	public Tarea updateAdmin(Tarea tarea) throws BusinessException, NotFoundException, InvalidEstimationValueException, NullListException, InvalidDestinationListException;
+	public Tarea updateUser(Tarea tarea) throws BusinessException, NotFoundException, InvalidEstimationValueException, NullListException, InvalidDestinationListException;
 }
