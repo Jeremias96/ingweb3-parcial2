@@ -1,5 +1,5 @@
 angular.module('iw3')
-.controller('ListasController', function($scope,$http,$log,$timeout,$uibModal,listasService,tareasService){
+.controller('ListasController', function($scope,$http,$log,$timeout,$uibModal, $rootScope, listasService,tareasService){
 	$scope.titulo="Tablero";
 	$scope.listas=[];	//Array
 	$scope.tareas={};	//Diccionario
@@ -312,7 +312,8 @@ angular.module('iw3')
         });
     });*/
 
-    $scope.refresh();
+    $rootScope.authInfo($scope.refresh);
+    //$scope.refresh();
 });
 
 angular.module('iw3')

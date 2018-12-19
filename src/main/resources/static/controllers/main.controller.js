@@ -1,7 +1,8 @@
 angular.module('iw3').controller('MainController',
-	function($scope){
+	function($scope, $rootScope){
 	
 		$scope.titulo="Menú";
+        $rootScope.authInfo();
 	
 	}	
 );
