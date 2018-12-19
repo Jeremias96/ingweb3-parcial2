@@ -131,7 +131,7 @@ public class TareaBusiness implements ITareaBusiness{
 	}
 
 	@Override
-	public Tarea updateAdmin(Tarea tarea) throws BusinessException, NotFoundException, InvalidEstimationValueException, NullListException, InvalidDestinationListException {
+	public Tarea updateLider(Tarea tarea) throws BusinessException, NotFoundException, InvalidEstimationValueException, NullListException, InvalidDestinationListException {
 		HashMap<String, String[]> origenDestino = new HashMap<String, String[]>();
 		origenDestino.put("backlog", new String[]{"todo"});
 		origenDestino.put("todo", new String[]{"in progress", "waiting", "done"});
@@ -143,18 +143,18 @@ public class TareaBusiness implements ITareaBusiness{
 	}
 
 	@Override
-	public Tarea updateUser(Tarea tarea) throws BusinessException, NotFoundException, InvalidEstimationValueException, NullListException, InvalidDestinationListException {
+	public Tarea updateDev(Tarea tarea) throws BusinessException, NotFoundException, InvalidEstimationValueException, NullListException, InvalidDestinationListException {
 		HashMap<String, String[]> origenDestino = new HashMap<String, String[]>();
 		origenDestino.put("backlog", new String[]{});
 		origenDestino.put("todo", new String[]{"in progress", "waiting", "done"});
-		origenDestino.put("in progress", new String[]{});
-		origenDestino.put("waiting", new String[]{});
+		origenDestino.put("in progress", new String[]{"waiting", "todo", "done"});
+		origenDestino.put("waiting", new String[]{"in progress", "todo", "done"});
 		origenDestino.put("done", new String[]{});
 
 		return update(tarea, origenDestino);
 	}
 
-	public Tarea update(Tarea tarea, HashMap<String, String[]> origenDestino) throws BusinessException, NotFoundException, InvalidEstimationValueException, NullListException, InvalidDestinationListException {
+	private Tarea update(Tarea tarea, HashMap<String, String[]> origenDestino) throws BusinessException, NotFoundException, InvalidEstimationValueException, NullListException, InvalidDestinationListException {
         Tarea tareaOrigen = null;
         String listaDestino = null;
 

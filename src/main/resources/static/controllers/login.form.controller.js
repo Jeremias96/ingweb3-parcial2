@@ -9,6 +9,7 @@ function LoginFormController($rootScope, $scope, $location, $window, $log, $uibM
 				if(resp.status===200) {
 					$rootScope.loginOpen=false;
 					$uibModalInstance.dismiss();
+                    $rootScope.user.fullName=resp.data.name;
 					$rootScope.user.name=resp.data.username;
 					$rootScope.user.roles = resp.data.roles;
 					$rootScope.autenticado=true;

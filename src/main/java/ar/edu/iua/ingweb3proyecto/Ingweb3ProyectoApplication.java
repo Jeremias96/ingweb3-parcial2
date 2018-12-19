@@ -2,6 +2,7 @@ package ar.edu.iua.ingweb3proyecto;
 
 import javax.sql.DataSource;
 
+import ar.edu.iua.ingweb3proyecto.model.persistence.UsuariosRespository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,9 +26,13 @@ public class Ingweb3ProyectoApplication implements CommandLineRunner {
 
 	@Autowired
 	private PasswordEncoder pe;
+	@Autowired
+	private UsuariosRespository uDAO;
 
 	@Override
 	public void run(String... args) throws Exception {
 		log.debug("DataSource actual = " + dataSource);
+		//log.debug("La password '123456' codificada es: "+ pe.encode("123456"));
+		//uDAO.setPassword(pe.encode("1234"), "dev", "dev@gmail.com");
 	}
 }

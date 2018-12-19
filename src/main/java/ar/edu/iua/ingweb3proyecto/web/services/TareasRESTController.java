@@ -107,10 +107,10 @@ public class TareasRESTController {
         try {
             tarea.setId(id);
             Tarea t = new Tarea();
-            if (request.isUserInRole("ROLE_ADMIN")) {
-                t = tareaBusiness.updateAdmin(tarea);
-            } else if (request.isUserInRole("ROLE_USER")) {
-                t = tareaBusiness.updateUser(tarea);
+            if (request.isUserInRole("ROLE_LEADER")) {
+                t = tareaBusiness.updateLider(tarea);
+            } else if (request.isUserInRole("ROLE_DEV")) {
+                t = tareaBusiness.updateDev(tarea);
             }
             HttpHeaders responseHeaders = new HttpHeaders();
             responseHeaders.set("location", "/tareas" + t.getId());

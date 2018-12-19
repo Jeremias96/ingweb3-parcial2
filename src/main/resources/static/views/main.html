@@ -1,6 +1,21 @@
-<h1>{{titulo}}</h1>
+<nav class="navbar navbar-default">
+	<ul class="nav pull-right navbar-nav">
+		<form class="navbar-form">
+			<span ng-show="autenticado"><strong><i class="fas fa-user-ninja"></i>{{user.name}}</strong>
+				<span class="pointer" ng-click="logout(true);"> ( Logout )</span>
+			</span>
+		</form>
+	</ul>
+</nav>
 
-<ul>
-	<li><a ng-click="relocate('listas')">Listas</a></li>
-	<li><a ng-click="relocate('listas2')">Listas andando</a></li>
-</ul>
+<blockquote class="blockquote text-center">
+	<div class="container">
+		<div class="jumbotron">
+			<h1><b>Tableros</b></h1>
+			<span ng-show="autenticado">
+				<p>Bienvenido, {{user.fullName}}</p>
+			</span>
+		</div>
+	</div>
+	<button class="btn btn-info navbar-btn" ng-click="relocate('listas')">Ver listas</button>
+</blockquote>
