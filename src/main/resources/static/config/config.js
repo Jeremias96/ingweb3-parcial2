@@ -3,6 +3,7 @@ angular.module('iw3')
     console.log('Configurando...');
     $logProvider.debugEnabled(true);
 
+
     $httpProvider.defaults.withCredentials = true;
     $httpProvider.interceptors.push('APIInterceptor');
 
