@@ -1,9 +1,21 @@
 <nav class="navbar navbar-default">
-	<ul class="nav pull-right navbar-nav">
+	<ul class="nav navbar-nav">
 		<form class="navbar-form">
-			<span ng-show="autenticado"><strong><i class="fas fa-user-ninja"></i>{{user.name}}</strong>
-				<span class="pointer" ng-click="logout(true);"> ( Logout )</span>
-			</span>
+			<span class="navbar-brand"><i class="fas fa-list-ul"></i> {{titulo}}</span>
+		</form>
+	</ul>
+	<ul class="nav pull-right navbar-nav fix">
+		<form class="navbar-form">
+			<div class="btn-group" uib-dropdown>
+				<button class="btn btn-info" uib-dropdown-toggle ng-disabled="disabled">
+					<i class="fas fa-user"></i> {{user.name}} <span class="caret"></span>
+				</button>
+				<ul class="dropdown-menu pull-right" uib-dropdown-menu role="menu" aria-labelledby="single-button">
+					<li role="menuitem" ng-click="relocate('tablero')"><a>Mi Tablero</a></li>
+					<!--li class="divider"></li-->
+					<li role="menuitem" ng-click="logout(true)"><a href="#">Cerrar sesión</a></li>
+				</ul>
+			</div>
 		</form>
 	</ul>
 </nav>
@@ -11,11 +23,11 @@
 <blockquote class="blockquote text-center">
 	<div class="container">
 		<div class="jumbotron">
-			<h1><b>Tableros</b></h1>
+			<h1><b>Tablero</b></h1>
 			<span ng-show="autenticado">
 				<p>Bienvenido, {{user.fullName}}</p>
 			</span>
 		</div>
 	</div>
-	<button class="btn btn-info navbar-btn" ng-click="relocate('listas')">Ver listas</button>
+	<button class="btn btn-info navbar-btn" ng-click="relocate('tablero')">Mi Tablero</button>
 </blockquote>

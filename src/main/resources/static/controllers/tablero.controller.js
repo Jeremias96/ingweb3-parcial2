@@ -1,11 +1,11 @@
 angular.module('iw3')
-.controller('ListasController', function($scope,$http,$log,$timeout,$uibModal, $rootScope, listasService,tareasService){
+.controller('TableroController', function($scope,$http,$log,$timeout,$uibModal, $rootScope, listasService,tareasService){
 	$scope.titulo="Tablero";
 	$scope.listas=[];	//Array
 	$scope.tareas={};	//Diccionario
 	$scope.instanciaL={};
     $scope.instanciaT={};
-    $scope.sort;
+    //$scope.sort;
     $scope.prioridades=['Alta','Media','Baja'];
 	
 	$scope.refresh=function() {
@@ -28,14 +28,6 @@ angular.module('iw3')
                         },
                         function (err) {
                             $log.log(err);
-                            swal({
-                                title: "¡Oops!",
-                                text: "Ocurrio un error",
-                                type:"error",
-                                timer: 1000,
-                                allowEscapeKey: true,
-                                showConfirmButton: false
-                            });
                         }
                     );
                 }
@@ -47,21 +39,14 @@ angular.module('iw3')
 	$scope.agregarLista=function(){
         listasService.add($scope.instanciaL).then(
             function(resp){
-                $scope.listas.push(resp.data);
-                $scope.tareas[resp.data.nombre] = [];
+                if(resp.status == 201){
+                    $scope.listas.push(resp.data);
+                    $scope.tareas[resp.data.nombre] = [];
+                }
                 $scope.instanciaL={};
             },
             function(err){
-                $scope.instanciaL={};
                 $log.log(err);
-                swal({
-                    title: "¡Oops!",
-                    text: "Operacion no permitida",
-                    type:"info",
-                    timer: 1000,
-                    allowEscapeKey: true,
-                    showConfirmButton: false
-                });
             }
         );
 	};
@@ -69,20 +54,13 @@ angular.module('iw3')
     $scope.agregarTarea=function(){
         tareasService.add($scope.instanciaT).then(
             function(resp){
-                $scope.tareas[resp.data.lista.nombre].push(resp.data);
-                $scope.instanciaT={};
+                if(resp.status == 201) {
+                    $scope.tareas[resp.data.lista.nombre].push(resp.data);
+                }
+                $scope.instanciaT = {};
             },
             function(err){
-                $scope.instanciaT={};
                 $log.log(err);
-                swal({
-                    title: "¡Oops!",
-                    text: "Ocurrio un error",
-                    type:"error",
-                    timer: 1000,
-                    allowEscapeKey: true,
-                    showConfirmButton: false
-                });
             }
         );
     };
@@ -92,49 +70,35 @@ angular.module('iw3')
 			return;*/
         tareasService.remove(id).then(
             function(resp){
-                for (var key in $scope.tareas){
-                    for (var index in $scope.tareas[key]){
-                        if ($scope.tareas[key][index].id == id){
-                            $scope.tareas[key].splice(index, 1);
-                            break;
+                if(resp.status == 200) {
+                    for (var key in $scope.tareas) {
+                        for (var index in $scope.tareas[key]) {
+                            if ($scope.tareas[key][index].id == id) {
+                                $scope.tareas[key].splice(index, 1);
+                                break;
+                            }
                         }
                     }
                 }
             },
             function(err){
                 $log.log(err);
-                swal({
-                    title: "¡Oops!",
-                    text: "Ocurrio un error",
-                    type:"error",
-                    timer: 1000,
-                    allowEscapeKey: true,
-                    showConfirmButton: false
-                });
             }
         );
 	};
 
-	$scope.sortBy=function(){
+	$scope.sortBy=function(sort){
         for (var lista in $scope.listas) {
             var key = $scope.listas[lista];
             $scope.tareas[key.nombre] = [];
 
-            tareasService.getByListSorted(key.nombre, $scope.sort).then(
+            tareasService.getByListSorted(key.nombre, sort).then(
                 function (resp) {
                     if (resp.data[0])
                         $scope.tareas[resp.data[0].lista.nombre] = resp.data;
                 },
                 function (err) {
                     $log.log(err);
-                    swal({
-                        title: "¡Oops!",
-                        text: "Ocurrio un error",
-                        type:"error",
-                        timer: 1000,
-                        allowEscapeKey: true,
-                        showConfirmButton: false
-                    });
                 }
             );
         }
@@ -147,25 +111,18 @@ angular.module('iw3')
                     var body = JSON.stringify({"lista": $scope.listas[lista]});
                     tareasService.update(tarea.id, body).then(   //ID de la tarea que quiero mover, tarea con id de lista a la que quiero mover
                         function (resp) {
-                            for (t in $scope.tareas[tarea.lista.nombre]){
-                                if ($scope.tareas[tarea.lista.nombre][t].id == tarea.id ){
-                                    $scope.tareas[tarea.lista.nombre].splice(t, 1);
-                                    $scope.tareas[nombreLista].push(resp.data);
-                                    break;
+                            if(resp.status==200) {
+                                for (t in $scope.tareas[tarea.lista.nombre]) {
+                                    if ($scope.tareas[tarea.lista.nombre][t].id == tarea.id) {
+                                        $scope.tareas[tarea.lista.nombre].splice(t, 1);
+                                        $scope.tareas[nombreLista].push(resp.data);
+                                        break;
+                                    }
                                 }
                             }
-                            //$scope.refresh();
                         },
                         function (err) {
                             $log.log(err);
-                            swal({
-                                title: "¡Oops!",
-                                text: "Operacion no permitida",
-                                type:"info",
-                                timer: 1000,
-                                allowEscapeKey: true,
-                                showConfirmButton: false
-                            });
                         }
                     );
                 }
@@ -230,7 +187,8 @@ angular.module('iw3')
                     $scope.agregarLista();
                 }
             },
-            function(e){
+            function(err){
+                $log.log(err);
             });
     };
 
@@ -255,7 +213,8 @@ angular.module('iw3')
                     $scope.agregarTarea();
                 }
             },
-            function(e){
+            function(err){
+                $log.log(err);
             });
     };
 
@@ -281,7 +240,8 @@ angular.module('iw3')
                     //$scope.actualizarTarea(); //servicio no desarrollado
                 }
             },
-            function(e){
+            function(err){
+                $log.log(err);
             });
     };
 
@@ -315,56 +275,3 @@ angular.module('iw3')
     $rootScope.authInfo($scope.refresh);
     //$scope.refresh();
 });
-
-angular.module('iw3')
-.controller('AddListaModalController', function($uibModalInstance,instancia){
-    var $ctrl=this;
-    $ctrl.instancia=angular.copy(instancia);
-    $ctrl.cancelar=function(){
-        $uibModalInstance.close();
-    };
-    $ctrl.ok=function(){
-        $uibModalInstance.close($ctrl.instancia);
-
-    };
-    $ctrl.mostrarBotonGuardar=function(){
-        var i = $ctrl.instancia;
-        return i.nombre &&  i.nombre.length > 0 && i.sprint && i.sprint.length > 0;
-    };
-});
-
-angular.module('iw3')
-    .controller('AddTareaModalController', function($uibModalInstance,instancia){
-        var $ctrl=this;
-        $ctrl.instancia=angular.copy(instancia);
-        $ctrl.cancelar=function(){
-            $uibModalInstance.close();
-        };
-        $ctrl.ok=function(){
-            $uibModalInstance.close($ctrl.instancia);
-
-        };
-        $ctrl.mostrarBotonGuardar=function(){
-            var i = $ctrl.instancia;
-            return i.nombre &&  i.nombre.length > 0 && i.prioridad && i.prioridad.length > 0 && i.estimacion && i.estimacion > 0;
-        };
-    });
-
-angular.module('iw3')
-    .controller('ViewTareaModalController', function($uibModalInstance,instancia){
-        var $ctrl=this;
-        $ctrl.prioridades=['Alta','Media','Baja'];
-        $ctrl.instancia=angular.copy(instancia);
-        $ctrl.ok=function(){
-            $uibModalInstance.close(/*$ctrl.instancia*/);
-
-        };
-        $ctrl.changeDate=function(milliseconds){
-            var raw = new Date(milliseconds);
-            var day = raw.getDate();
-            var month = raw.getMonth(); //Be careful! January is 0 not 1
-            var year = raw.getFullYear();
-            return day + "-" +(month + 1) + "-" + year;
-        };
-
-    });

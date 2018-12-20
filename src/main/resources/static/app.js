@@ -7,15 +7,16 @@ var app = angular.module('iw3',['ngRoute','dndLists',
 
 app.constant('URL_BASE','/');
 app.constant('URL_API_BASE','/api/v1/');
-app.constant('URL_WS', '/api/v1/ws');
 
 app.run(['$location','$log','$rootScope','$uibModal', 'coreService', '$stomp',
-	function($location,$log,$rootScope,$uibModal,coreService,$stomp){
+	function($location,$log,$rootScope,$uibModal,coreService){
 		$log.log('Iniciando');
-        //$rootScope.stomp=$stomp;
+
+        $rootScope.alert = -1;
 
         $rootScope.cleanLoginData = function() {
             $rootScope.autenticado = false;
+            $rootScope.alert = -1;
             $rootScope.user = {
                 fullName: "",
                 name : "",
@@ -30,8 +31,13 @@ app.run(['$location','$log','$rootScope','$uibModal', 'coreService', '$stomp',
 			$location.path(loc);
 		};
 
-        $rootScope.openLoginForm = function(size) {
+        $rootScope.mostrarAlerta = function(){
+            return $rootScope.alert > 0;
+        };
+
+        $rootScope.openLoginForm = function() {
             $log.log("Abriendo login");
+            $rootScope.alert = $rootScope.alert + 1;
             if (!$rootScope.loginOpen) {
                 $rootScope.cleanLoginData();
                 $rootScope.loginOpen = true;
@@ -39,12 +45,12 @@ app.run(['$location','$log','$rootScope','$uibModal', 'coreService', '$stomp',
                     animation : true,
                     backdrop : 'static',
                     keyboard : false,
-                    templateUrl : 'views/loginForm.html',
-                    controller : 'LoginFormController',
-                    size : size,
+                    templateUrl : 'views/loginFormModal.html',
+                    controller : 'LoginFormModalController',
+                    size : '',
                     resolve : {
                         user : function() {
-                            return $rootScope.user
+                            return $rootScope.user;
                         }
                     }
                 });
@@ -60,13 +66,15 @@ app.run(['$location','$log','$rootScope','$uibModal', 'coreService', '$stomp',
                     $rootScope.user.name=resp.data.username;
                     $rootScope.user.roles = resp.data.roles;
                     $rootScope.autenticado=true;
-                    if($rootScope.cbauth) $rootScope.cbauth();
+                    if($rootScope.cbauth){
+                        $rootScope.cbauth();
+                    }
                 }else{
                     $rootScope.autenticado=false;
                     $rootScope.user.roles=[];
                 }
             });
-        }
+        };
 
         $rootScope.logout = function(callAuthInfo) {
             coreService.logout().then(function(r){
@@ -77,7 +85,7 @@ app.run(['$location','$log','$rootScope','$uibModal', 'coreService', '$stomp',
             },function(){});
         };
 
-        $rootScope.mostrarSpinner = true;
+        //$rootScope.mostrarSpinner = true;
 	}
 ]);
 

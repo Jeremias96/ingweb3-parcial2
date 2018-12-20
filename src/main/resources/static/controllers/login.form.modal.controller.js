@@ -1,6 +1,6 @@
 angular.module('iw3')
-.controller('LoginFormController', ['$rootScope', '$scope', '$location','$window','$log', '$uibModalInstance', 'coreService','user',  LoginFormController]);
-function LoginFormController($rootScope, $scope, $location, $window, $log, $uibModalInstance, coreService,user) {
+.controller('LoginFormModalController', ['$rootScope', '$scope', '$location','$window','$log', '$uibModalInstance', 'coreService','user',  LoginFormModalController]);
+function LoginFormModalController($rootScope, $scope, $location, $window, $log, $uibModalInstance, coreService, user) {
 	$scope.title="Ingreso";
 	$scope.user=user;	
 	$scope.login = function () {
@@ -21,8 +21,8 @@ function LoginFormController($rootScope, $scope, $location, $window, $log, $uibM
 					$rootScope.openLoginForm();
 				}
 			},
-			function(respErr){
-				$log.log(respErr);
+			function(err){
+				$log.log(err);
 			}
 		);
 	  };
