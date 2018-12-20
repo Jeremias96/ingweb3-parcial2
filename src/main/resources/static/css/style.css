@@ -1,11 +1,8 @@
 .trunc{
-    max-width:80px; /* Customise it accordingly */
+    max-width:70px; /* Customise it accordingly */
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-}
-.width-date{
-    min-width:80px;
 }
 .dndDragging{
     background-color: gainsboro;

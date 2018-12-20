@@ -16,22 +16,22 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(Constantes.URL_TEST)
 public class TestRestController extends BaseRestController{
 
-	@GetMapping("/admin")
-	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	@GetMapping("/lider")
+	@PreAuthorize("hasRole('ROLE_LEADER')")
 	public ResponseEntity<String> onlyAdmin() {
-		return new ResponseEntity<String>("Servicio admin", HttpStatus.OK);
+		return new ResponseEntity<String>("Servicio lider", HttpStatus.OK);
 	}
 
-	@GetMapping("/user")
-	@PreAuthorize("hasRole('ROLE_USER')")
+	@GetMapping("/dev")
+	@PreAuthorize("hasRole('ROLE_DEV')")
 	public ResponseEntity<String> onlyUser() {
-		return new ResponseEntity<String>("Servicio user", HttpStatus.OK);
+		return new ResponseEntity<String>("Servicio desarrollador", HttpStatus.OK);
 	}
 	
-	@GetMapping("/adminoruser")
-	@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
+	@GetMapping("/liderodev")
+	@PreAuthorize("hasRole('ROLE_LEADER') or hasRole('ROLE_DEV')")
 	public ResponseEntity<String> adminOrUser() {
-		return new ResponseEntity<String>("Servicio admin or user", HttpStatus.OK);
+		return new ResponseEntity<String>("Servicio lider o dev", HttpStatus.OK);
 	}
 	
 	@PreAuthorize("#username == authentication.principal.username")
@@ -42,10 +42,10 @@ public class TestRestController extends BaseRestController{
 
 	@GetMapping("/variable")
 	public ResponseEntity<String> onlyAdminProgramado(HttpServletRequest request) {
-		if (request.isUserInRole("ROLE_ADMIN")) {
-			return new ResponseEntity<String>("Servicio dinámico para ADMIN", HttpStatus.OK);
+		if (request.isUserInRole("ROLE_LEADER")) {
+			return new ResponseEntity<String>("Servicio dinámico para LIDER", HttpStatus.OK);
 		} else {
-			return new ResponseEntity<String>("Servicio dinámico para USER", HttpStatus.OK);
+			return new ResponseEntity<String>("Servicio dinámico para DEV", HttpStatus.OK);
 		}
 	}
 

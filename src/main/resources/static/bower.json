@@ -11,8 +11,8 @@
           "angular-bootstrap":"~2.5.0",
           "angular-drag-and-drop-lists":"~2.1.0",
           "bootstrap-sweetalert":"~1.0.1",
-          "angular-bootstrap-confirm":"latest",
-    },
+          "angular-bootstrap-confirm":"latest"
+    }
 }
 
 
