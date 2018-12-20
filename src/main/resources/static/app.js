@@ -1,14 +1,15 @@
 
-var app = angular.module('iw3',['ngRoute','dndLists',
+/*var app = angular.module('iw3',['ngRoute','dndLists',
 	'mwl.confirm', 'ngAnimate', 'ngTouch', 'ui.bootstrap',
     'ngSanitize', 'angularUtils.directives.dirPagination',
     'angucomplete-alt', 'ngLoadingSpinner', 'ui.select',
-    'adaptv.adaptStrap', 'ui-notification', 'ngStomp', 'uiSwitch' ]);
+    'adaptv.adaptStrap', 'ui-notification', 'ngStomp', 'uiSwitch' ]);*/
+var app = angular.module('iw3',['ngRoute','dndLists', 'mwl.confirm', 'ui.bootstrap','ngSanitize']);
 
 app.constant('URL_BASE','/');
 app.constant('URL_API_BASE','/api/v1/');
 
-app.run(['$location','$log','$rootScope','$uibModal', 'coreService', '$stomp',
+app.run(['$location','$log','$rootScope','$uibModal', 'coreService',
 	function($location,$log,$rootScope,$uibModal,coreService){
 		$log.log('Iniciando');
 
@@ -56,6 +57,7 @@ app.run(['$location','$log','$rootScope','$uibModal', 'coreService', '$stomp',
                 });
             }
         };
+
         //Callback luego de autenticación
         $rootScope.cbauth=false;
         $rootScope.authInfo=function(cb) {
@@ -85,7 +87,6 @@ app.run(['$location','$log','$rootScope','$uibModal', 'coreService', '$stomp',
             },function(){});
         };
 
-        //$rootScope.mostrarSpinner = true;
 	}
 ]);
 

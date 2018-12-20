@@ -1,11 +1,10 @@
 angular.module('iw3')
-.controller('TableroController', function($scope,$http,$log,$timeout,$uibModal, $rootScope, listasService,tareasService){
+.controller('TableroController', function($scope,$http,$log,$uibModal,$rootScope,listasService,tareasService){
 	$scope.titulo="Tablero";
 	$scope.listas=[];	//Array
 	$scope.tareas={};	//Diccionario
 	$scope.instanciaL={};
     $scope.instanciaT={};
-    //$scope.sort;
     $scope.prioridades=['Alta','Media','Baja'];
 	
 	$scope.refresh=function() {
@@ -20,10 +19,6 @@ angular.module('iw3')
                         function (resp) {
                             if (resp.data[0]) {
                                 $scope.tareas[resp.data[0].lista.nombre] = resp.data;
-                                /*$scope.tareas[resp.data[0].lista.nombre] = [];
-                                for (var t in resp.data) {
-                                    $scope.tareas[resp.data[0].lista.nombre].push(resp.data[t]);
-                                }*/
                             }
                         },
                         function (err) {
@@ -39,7 +34,7 @@ angular.module('iw3')
 	$scope.agregarLista=function(){
         listasService.add($scope.instanciaL).then(
             function(resp){
-                if(resp.status == 201){
+                if(resp.status === 201){
                     $scope.listas.push(resp.data);
                     $scope.tareas[resp.data.nombre] = [];
                 }
@@ -54,7 +49,7 @@ angular.module('iw3')
     $scope.agregarTarea=function(){
         tareasService.add($scope.instanciaT).then(
             function(resp){
-                if(resp.status == 201) {
+                if(resp.status === 201) {
                     $scope.tareas[resp.data.lista.nombre].push(resp.data);
                 }
                 $scope.instanciaT = {};
@@ -66,14 +61,12 @@ angular.module('iw3')
     };
 
 	$scope.borrar=function(id){
-		/*if(!confirm("Desea eliminar la tarea seleccionada?"))
-			return;*/
         tareasService.remove(id).then(
             function(resp){
-                if(resp.status == 200) {
+                if(resp.status === 200) {
                     for (var key in $scope.tareas) {
                         for (var index in $scope.tareas[key]) {
-                            if ($scope.tareas[key][index].id == id) {
+                            if ($scope.tareas[key][index].id === id) {
                                 $scope.tareas[key].splice(index, 1);
                                 break;
                             }
@@ -105,15 +98,15 @@ angular.module('iw3')
     };
 
 	$scope.moverLista=function(tarea, nombreLista){
-	    if (tarea.lista.nombre != nombreLista){
+	    if (tarea.lista.nombre !== nombreLista){
             for (var lista in $scope.listas) {
-                if ($scope.listas[lista].nombre == nombreLista){
+                if ($scope.listas[lista].nombre === nombreLista){
                     var body = JSON.stringify({"lista": $scope.listas[lista]});
                     tareasService.update(tarea.id, body).then(   //ID de la tarea que quiero mover, tarea con id de lista a la que quiero mover
                         function (resp) {
-                            if(resp.status==200) {
+                            if(resp.status === 200) {
                                 for (t in $scope.tareas[tarea.lista.nombre]) {
-                                    if ($scope.tareas[tarea.lista.nombre][t].id == tarea.id) {
+                                    if ($scope.tareas[tarea.lista.nombre][t].id === tarea.id) {
                                         $scope.tareas[tarea.lista.nombre].splice(t, 1);
                                         $scope.tareas[nombreLista].push(resp.data);
                                         break;
@@ -129,30 +122,6 @@ angular.module('iw3')
             }
 	    }
     };
-
-    /*$scope.test=function(tarea,lista) {
-        $log.log("Mover lista con drag and drop");
-        $log.log(tarea);
-        $log.log(lista);
-        $scope.tareas[lista].push(tarea);
-        for (var l in $scope.listas) {
-            var key = $scope.listas[l];
-            $log.log("Listas");
-            $log.log(key.nombre);
-            $log.log(key.id);
-        }
-        return true;
-    };*/
-
-	/*$scope.mostrarBotonGuardarLista=function(){
-		var i=$scope.instanciaL;
-		return i.nombre &&  i.nombre.length>0 && i.sprint && i.sprint.length>0;
-	};*/
-
-    /*$scope.mostrarBotonGuardarTarea=function(){
-        var i=$scope.instanciaT;
-        return i.nombre &&  i.nombre.length > 0 && i.prioridad && i.prioridad.length > 0 && i.estimacion && i.estimacion > 0;
-    };*/
 
     $scope.mostrarListaVacia=function(lista){
         return $scope.tareas[lista].length <= 0;
@@ -181,9 +150,9 @@ angular.module('iw3')
         });
 
         mi.result.then(
-            function(r){
-                if (r != null) {
-                    $scope.instanciaL=r;
+            function(resp){
+                if (resp != null) {
+                    $scope.instanciaL=resp;
                     $scope.agregarLista();
                 }
             },
@@ -207,9 +176,9 @@ angular.module('iw3')
         });
 
         mi.result.then(
-            function(r){
-                if (r != null) {
-                    $scope.instanciaT=r;
+            function(resp){
+                if (resp != null) {
+                    $scope.instanciaT=resp;
                     $scope.agregarTarea();
                 }
             },
@@ -233,12 +202,7 @@ angular.module('iw3')
         });
 
         mi.result.then(
-            function(r){
-                if (r != null) {
-                    $log.log(r);
-                    //$scope.instanciaT=r;
-                    //$scope.actualizarTarea(); //servicio no desarrollado
-                }
+            function(resp){
             },
             function(err){
                 $log.log(err);
@@ -273,5 +237,4 @@ angular.module('iw3')
     });*/
 
     $rootScope.authInfo($scope.refresh);
-    //$scope.refresh();
 });

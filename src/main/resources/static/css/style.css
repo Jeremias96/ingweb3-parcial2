@@ -1,19 +1,29 @@
 .trunc{
-    max-width:65px; /* Customise it accordingly */
+    max-width:80px; /* Customise it accordingly */
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
 }
+.width-date{
+    min-width:80px;
+}
 .dndDragging{
-    background-color: silver;
+    background-color: gainsboro;
 }
 .dndPlaceholder{
-    background-color: silver;
+    background-color: gainsboro;
 }
 .fix{
     padding-top:8px;
     padding-bottom:8px;
 }
-.min-with{
-
+.action:hover {
+    color: grey;
+}
+.col-title-font {
+    font-size: 10px;
+}
+.col-content-font {
+    font-size: 13px;
+    vertical-align: center;
 }

@@ -4,7 +4,7 @@ angular.module('iw3')
         $ctrl.prioridades=['Alta','Media','Baja'];
         $ctrl.instancia=angular.copy(instancia);
         $ctrl.ok=function(){
-            $uibModalInstance.close(/*$ctrl.instancia*/);
+            $uibModalInstance.close();
 
         };
         $ctrl.changeDate=function(milliseconds){

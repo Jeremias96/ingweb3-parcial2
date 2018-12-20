@@ -2,6 +2,7 @@
 /logs/
 !.mvn/wrapper/maven-wrapper.jar
 /src/main/resources/static/bower_components/
+keystore.p12
 
 ### STS ###
 .apt_generated

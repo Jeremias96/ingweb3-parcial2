@@ -8,10 +8,11 @@
 	</ul>
 	<ul class="nav pull-right navbar-nav">
 		<form class="navbar-form">
+			<button class="btn btn-info navbar-btn" ng-click="relocate('/')"><i class="fas fa-arrow-left"></i> Volver</button>
 			<button class="btn btn-info navbar-btn" ng-click="refresh()"><i class="fas fa-sync-alt"></i> Refresh</button>
 			<div class="btn-group" uib-dropdown>
 				<button class="btn btn-info" uib-dropdown-toggle ng-disabled="disabled">
-					Ordenar por... <span class="caret"></span>
+					Ordenar por...<span class="caret"></span>
 				</button>
 				<ul class="dropdown-menu pull-right" uib-dropdown-menu role="menu" aria-labelledby="single-button">
 					<li role="menuitem"><a ng-click="sortBy('fechacreacion')">Fecha de creacion</a></li>
@@ -23,9 +24,7 @@
 					<i class="fas fa-user"></i> {{user.name}} <span class="caret"></span>
 				</button>
 				<ul class="dropdown-menu pull-right" uib-dropdown-menu role="menu" aria-labelledby="single-button">
-					<li role="menuitem" ng-click="relocate('/')"><a>Volver</a></li>
-					<!--li class="divider"></li-->
-					<li role="menuitem" ng-click="logout(true)"><a href="#">Cerrar sesión</a></li>
+					<li role="menuitem" ng-click="logout(true)"><a href="#"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a></li>
 				</ul>
 			</div>
 		</form>
@@ -43,12 +42,9 @@
 							<th scope="row" colspan="5">{{lista}}</th>
 						</tr>
 						<tr ng-show="!mostrarListaVacia(lista)">
-							<!--<th scope="row">ID</th>-->
-							<th scope="row">Tarea</th>
-							<th scope="row">Fecha de creacion</th>
-							<!--<th scope="row">Fecha de modificacion</th>-->
-							<th scope="row">Prior.</th>
-							<!--<th scope="row">Estimacion</th>-->
+							<th class="col-title-font" scope="row">Tarea</th>
+							<th class="col-title-font width-date" scope="row">Fecha Creacion</th>
+							<th class="col-title-font" scope="row">Prior.</th>
 							<th scope="row"></th>
 							<th scope="row"></th>
 						</tr>
@@ -57,15 +53,12 @@
 						<tr ng-repeat="t in tarea"
 							dnd-draggable="t"
 							dnd-effect-allowed="move">
-							<!--<td>{{t.id}}</td>-->
-							<td class="trunc">{{t.nombre}}</td>
-							<td>{{changeDate(t.fechacreacion)}}</td>
-							<!--<td>{{changeDate(t.fechamodificacion)}}</td>-->
-							<td>{{prioridades[t.prioridad]}}</td>
-							<!--<td>{{t.estimacion}}</td>-->
-							<td><i ng-click="nuevoModalViewTarea(t)" class="fas fa-eye"></i></td>
+							<td class="trunc col-content-font">{{t.nombre}}</td>
+							<td class="col-content-font">{{changeDate(t.fechacreacion)}}</td>
+							<td class="col-content-font">{{prioridades[t.prioridad]}}</td>
+							<td><i ng-click="nuevoModalViewTarea(t)" class="fas fa-eye action" title="¿Desea ver la tarea?"></i></td>
 							<td>
-								<i class="fas fa-trash-alt"
+								<i class="fas fa-trash-alt action"
 								   mwl-confirm
 								   title="¿Desea borrar la tarea?"
 								   message=""
@@ -90,35 +83,3 @@
 		</div>
 	</div>
 </div>
-
-<!--
-dnd-moved="tarea.splice($index, 1)"
--->
-<!--
-<div class="clearfix"></div>
-
-<div class="panel panel-default">
-	<div class="panel-heading">Nueva Lista</div>
-	<div class="panel-body">
-		Nombre: <input type="text" ng-model="instanciaL.nombre"/><br/>
-		Sprint: <input type="text" ng-model="instanciaL.sprint"/><br/>
-	</div>
-	<div class="panel-footer">
-		<button ng-show="mostrarBotonGuardarLista()" class="btn btn-primary" ng-click="agregarLista()">Guardar</button>
-	</div>
-</div>
-
-<div class="panel panel-default">
-	<div class="panel-heading">Nueva Tarea</div>
-	<div class="panel-body">
-		Nombre: <input type="text" ng-model="instanciaT.nombre"/><br/>
-		Fecha de creacion: <input type="text" ng-model="instanciaT.fechacreacion"/><br/>
-		Fecha de modificacion: <input type="text" ng-model="instanciaT.fechamodificacion"/><br/>
-		Prioridad: <input type="text" ng-model="instanciaT.prioridad"/><br/>
-		Estimacion: <input type="number" ng-model="instanciaT.estimacion"/><br/>
-	</div>
-	<div class="panel-footer">
-		<button ng-show="mostrarBotonGuardarTarea()" class="btn btn-primary" ng-click="agregarTarea()">Guardar</button>
-	</div>
-</div>
--->

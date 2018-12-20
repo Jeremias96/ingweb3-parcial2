@@ -11,9 +11,7 @@
 					<i class="fas fa-user"></i> {{user.name}} <span class="caret"></span>
 				</button>
 				<ul class="dropdown-menu pull-right" uib-dropdown-menu role="menu" aria-labelledby="single-button">
-					<li role="menuitem" ng-click="relocate('tablero')"><a>Mi Tablero</a></li>
-					<!--li class="divider"></li-->
-					<li role="menuitem" ng-click="logout(true)"><a href="#">Cerrar sesión</a></li>
+					<li role="menuitem" ng-click="logout(true)"><a href="#"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a></li>
 				</ul>
 			</div>
 		</form>
@@ -23,7 +21,7 @@
 <blockquote class="blockquote text-center">
 	<div class="container">
 		<div class="jumbotron">
-			<h1><b>Tablero</b></h1>
+			<h1><i class="fas fa-tasks"></i><b> Tablero</b></h1>
 			<span ng-show="autenticado">
 				<p>Bienvenido, {{user.fullName}}</p>
 			</span>
