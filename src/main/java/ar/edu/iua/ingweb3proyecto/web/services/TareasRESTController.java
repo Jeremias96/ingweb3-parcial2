@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import ar.edu.iua.ingweb3proyecto.business.ITareaBusiness;
@@ -63,6 +64,7 @@ public class TareasRESTController {
 	}
 
     @PostMapping(value = { "/", "" })
+    //@PreAuthorize("hasRole('ROLE_LEADER')")
     public ResponseEntity<Tarea> add(@RequestBody Tarea tarea ) {
         try {
             Tarea t = tareaBusiness.add(tarea);
@@ -86,6 +88,7 @@ public class TareasRESTController {
     }
 
     @DeleteMapping(value = {"/{id}"})
+    //@PreAuthorize("hasRole('ROLE_LEADER')")
     public ResponseEntity<Tarea> delete(@PathVariable("id") int id) {
 	    try {
             Tarea t = new Tarea();
